@@ -11,7 +11,7 @@
     # Binds
     bind = $mod, Return, exec, kitty
     bind = $mod, D, exec, wofi --show drun
-    bind = $mod, E, exec, env QT_QPA_PLATFORM=wayland dolphin
+    bind = $mod, E, exec, thunar
     bind = $mod, Q, killactive
     bind = $mod, B, exec, firefox
   '';

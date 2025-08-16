@@ -2,6 +2,8 @@
 
 {
   programs.firefox.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
   # System-wide packages for all users
   environment.systemPackages = with pkgs; [
@@ -16,11 +18,11 @@
     pamixer
     pavucontrol
 
-
-    # File manager (Qt6 / Wayland-native) + extras
-    kdePackages.dolphin
-    kdePackages.kde-cli-tools
-    kdePackages.kio-extras
+    # File manager
+    pkgs.xfce.thunar
+    pkgs.xfce.thunar-archive-plugin
+    pkgs.xfce.thunar-volman
+    pkgs.xfce.tumbler
 
     # Applets
     pavucontrol
@@ -35,5 +37,6 @@
     fastfetch
     vulkan-tools
     nvtopPackages.amd
+    btop
   ];
 }
