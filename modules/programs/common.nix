@@ -16,18 +16,17 @@
     grim
     slurp
     pamixer
-    pavucontrol
-    where-is-my-sddm-theme
 
     # File manager
-    pkgs.xfce.thunar
-    pkgs.xfce.thunar-archive-plugin
-    pkgs.xfce.thunar-volman
-    pkgs.xfce.tumbler
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xfce.tumbler
 
     # Applets
     pavucontrol
     networkmanagerapplet
+    papirus-icon-theme
 
     # ---- CLI utilities ----
     git

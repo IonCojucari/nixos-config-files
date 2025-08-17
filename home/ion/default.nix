@@ -7,5 +7,6 @@
     ./kitty.nix
     ./vscode.nix
     ./powermenu.nix
+    ./gtk.nix
   ];
 }
