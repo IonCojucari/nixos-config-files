@@ -7,11 +7,11 @@
 
   imports = [
     ./hardware-configuration.nix
+    ../../modules/services/login/sddm.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
     ../../modules/desktop/hyprland.nix
     ../../modules/desktop/fonts.nix
-    ../../modules/services/login/sddm.nix
   ];
 
   time.timeZone = "Europe/Paris";

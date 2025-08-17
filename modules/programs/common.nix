@@ -17,6 +17,7 @@
     slurp
     pamixer
     pavucontrol
+    where-is-my-sddm-theme
 
     # File manager
     pkgs.xfce.thunar
