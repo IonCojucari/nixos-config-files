@@ -4,7 +4,7 @@
     sddm = {
       enable = true;
       wayland.enable = true;
-      theme = "where_is_my_sddm_theme";
+      theme = "chili";
     };
     # Start Hyprland by default
     defaultSession = "hyprland";
