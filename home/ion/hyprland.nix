@@ -1,7 +1,15 @@
 { ... }:
 {
+
+  wayland.windowManager.hyprland = {
+    xwayland.enable = true;
+  };
+
+
   home.file.".config/hypr/hyprland.conf".text = ''
     $mod = SUPER
+
+    monitor = eDP-1,preferred,auto,1
 
     # Autostart
     exec-once = hyprpaper

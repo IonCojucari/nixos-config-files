@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
   # Hyprland session
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
+  programs.hyprland.enable = true;
 
   # Removable media / trash / network mounts, etc.
   services.gvfs.enable = true;
