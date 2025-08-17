@@ -1,9 +1,6 @@
 { pkgs, ... }:
-
 {
   programs.firefox.enable = true;
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
 
   # System-wide packages for all users
   environment.systemPackages = with pkgs; [
@@ -17,7 +14,7 @@
     slurp
     pamixer
     pavucontrol
-    where-is-my-sddm-theme
+    sddm-chili-theme
 
     # File manager
     pkgs.xfce.thunar
@@ -26,7 +23,6 @@
     pkgs.xfce.tumbler
 
     # Applets
-    pavucontrol
     networkmanagerapplet
 
     # ---- CLI utilities ----
