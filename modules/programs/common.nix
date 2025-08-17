@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   programs.firefox.enable = true;
+  programs.hyprland.enable = true;
 
   # System-wide packages for all users
   environment.systemPackages = with pkgs; [
@@ -35,5 +36,6 @@
     vulkan-tools
     nvtopPackages.amd
     btop
+    tree
   ];
 }

@@ -1,26 +1,32 @@
-{ ... }:
+{ config, pkgs, ... }:
 {
-
   wayland.windowManager.hyprland = {
+    enable = true;
     xwayland.enable = true;
+
+    # Rendered to ~/.config/hypr/hyprland.conf
+    settings = {
+      # variables
+      "$mod" = "SUPER";
+
+      # monitors
+      monitor = [ "eDP-1,preferred,auto,1" ];
+
+      # autostart (repeats -> list)
+      "exec-once" = [
+        "hyprpaper"
+        "waybar"
+        "nm-applet --indicator"
+      ];
+
+      # keybinds (repeats -> list)
+      bind = [
+        "$mod, Return, exec, kitty"
+        "$mod, D, exec, wofi --show drun"
+        "$mod, E, exec, thunar"
+        "$mod, Q, killactive"
+        "$mod, B, exec, firefox"
+      ];
+    };
   };
-
-
-  home.file.".config/hypr/hyprland.conf".text = ''
-    $mod = SUPER
-
-    monitor = eDP-1,preferred,auto,1
-
-    # Autostart
-    exec-once = hyprpaper
-    exec-once = waybar
-    exec-once = nm-applet --indicator
-
-    # Binds
-    bind = $mod, Return, exec, kitty
-    bind = $mod, D, exec, wofi --show drun
-    bind = $mod, E, exec, thunar
-    bind = $mod, Q, killactive
-    bind = $mod, B, exec, firefox
-  '';
 }

@@ -10,7 +10,7 @@
     ../../modules/services/login/sddm.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
-    ../../modules/desktop/hyprland.nix
+    ../../modules/desktop/plumbing.nix
     ../../modules/desktop/fonts.nix
   ];
 
