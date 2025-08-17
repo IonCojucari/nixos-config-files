@@ -17,6 +17,12 @@
   time.timeZone = "Europe/Paris";
   networking.networkmanager.enable = true;
 
+  # Portal for Wayland apps
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  };
+
   # User
   users.users.ion = {
     isNormalUser = true;
@@ -39,6 +45,8 @@
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "bgrt";
 
   system.stateVersion = "25.05";
 }
