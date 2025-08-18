@@ -6,26 +6,56 @@
 
     # Rendered to ~/.config/hypr/hyprland.conf
     settings = {
-      # variables
+      # ── Variables
       "$mod" = "SUPER";
 
-      # monitors
-      monitor = [ "eDP-1,preferred,auto,1" ];
+      # ── Monitors
+      monitor = [
+        "eDP-1,preferred,auto,1"
+      ];
 
-      # autostart (repeats -> list)
+      workspace = [
+        "1, monitor:eDP-1, default:true, persistent:true"
+        "2, monitor:eDP-1, persistent:true"
+        "3, monitor:eDP-1, persistent:true"
+        "4, monitor:eDP-1, persistent:true"
+      ];
+
+      # ── Autostart
       "exec-once" = [
         "hyprpaper"
         "waybar"
         "nm-applet --indicator"
       ];
 
-      # keybinds (repeats -> list)
+      # ── Keybinds
       bind = [
+        # Apps
         "$mod, Return, exec, kitty"
-        "$mod, D, exec, wofi --show drun"
+        "$mod, D, exec, bash -lc 'if pgrep -f \"(^|/)wofi( |$)\" >/dev/null; then pkill -f \"(^|/)wofi( |$)\"; else wofi --show drun & disown; fi'"
         "$mod, E, exec, thunar"
-        "$mod, Q, killactive"
         "$mod, B, exec, firefox"
+        "$mod, Q, killactive"
+
+        # Workspaces: relative navigation
+        "$mod, right, workspace,e+1"
+        "$mod, left,  workspace, e-1"
+
+        # Move focused window to next/prev workspace
+        "$mod SHIFT, right, movetoworkspace, +1"
+        "$mod SHIFT, left,  movetoworkspace, -1"
+
+        # Quick jump to numbered workspaces
+        "$mod, 1, workspace, 1"
+        "$mod, 2, workspace, 2"
+        "$mod, 3, workspace, 3"
+        "$mod, 4, workspace, 4"
+
+        # Send focused window to numbered workspaces
+        "$mod SHIFT, 1, movetoworkspace, 1"
+        "$mod SHIFT, 2, movetoworkspace, 2"
+        "$mod SHIFT, 3, movetoworkspace, 3"
+        "$mod SHIFT, 4, movetoworkspace, 4"
       ];
     };
   };

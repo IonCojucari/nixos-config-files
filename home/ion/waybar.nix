@@ -3,6 +3,7 @@
 {
     programs.waybar = {
       enable = true;
+      package = pkgs.waybar;
       systemd = {
         enable = false;
         target = "graphical-session.target";
@@ -163,6 +164,7 @@
         "position" = "top";
         modules-left = [
           "custom/launcher"
+	  "hyprland/workspaces"
           "temperature"
           "mpd"
           "custom/cava-internal"
@@ -184,6 +186,16 @@
           "format" = " ";
           "on-click" = "pkill wofi || wofi --show drun";
           "tooltip" = false;
+        };
+	"hyprland/workspaces" = {
+          "persistent_workspaces" = {
+            "*" = [ "1" "2" "3" "4" ];
+          };
+          "on-click" = "hyprctl dispatch workspace {name}";
+          "format" = "{name}";
+          "all-outputs" = true;            
+          "format-icons" = { "default" = "●"; "active" = ""; };
+          "active-only" = false;
         };
         "custom/cava-internal" = {
           "exec" = "sleep 1s && cava-internal";
@@ -251,7 +263,7 @@
         "custom/powermenu" = {
           "format" = "";
           "tooltip" = false;
-          "on-click" = "powermenu";
+          "on-click" = "pkill -f '(^|/)wofi( |$)' || (powermenu & disown)";
         };
         "tray" = {
           "icon-size" = 15;

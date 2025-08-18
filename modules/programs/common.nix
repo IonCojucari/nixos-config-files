@@ -8,8 +8,8 @@
     # ---- Desktop essentials ----
     hyprpaper
     waybar
-    kitty
     wofi
+    kitty
     wl-clipboard
     grim
     slurp
