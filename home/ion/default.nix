@@ -5,6 +5,7 @@
 
   imports = [
     ./hyprland.nix
+    ./thunar.nix
     ./waybar.nix
     ./kitty.nix
     ./vscode.nix

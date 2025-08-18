@@ -1,60 +1,59 @@
 { config, pkgs, ... }:
-
 {
-  # If not already:
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-media-tags-plugin
-    ];
-  };
+  home.packages = with pkgs; [
+    xfce.thunar-archive-plugin
+    xfce.thunar-media-tags-plugin
+    file-roller
 
-  # Thumbnails for images/videos, PDFs, etc.
-  services.tumbler.enable = true;
+    # thumbnails
+    ffmpegthumbnailer
+    poppler
+    libgsf
+    webp-pixbuf-loader
 
-  # Needed for trash, mounts, network shares previews, etc.
-  services.gvfs.enable = true;
+    # themes/icons/cursors
+    papirus-icon-theme
+    gnome-themes-extra    # Adwaita etc.
+    adwaita-icon-theme
+    bibata-cursors
+  ];
 
-  # GTK theming
+
+  # GTK theming (crisp icons in Thunar)
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";                # or "Catppuccin-Mocha-Standard-Blue-Dark"
-      package = pkgs.gnome-themes-extra;    # change if you pick a custom theme
+      name = "Adwaita-dark";           # or your favorite GTK theme
+      package = pkgs.gnome-themes-extra;
     };
     iconTheme = {
-      name = "Papirus-Dark";                # super crisp icons
+      name = "Papirus-Dark";           # sharp icon set
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = "Bibata-Modern-Ice";           # optional but nice
+      name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
-      size = 28;                             # bump for HiDPI
+      size = 28;
     };
     font = {
-      name = "Inter";                        # pick your favorite
+      name = "Inter";
       size = 11;
     };
   };
 
-  # Fonts (ensure good rendering)
-  fonts.fontconfig.enable = true;
+  xdg.configFile."xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <channel name="thunar" version="1.0">
+      <property name="last-view" type="string" value="ThunarIconView"/>
+      <property name="last-icon-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_LARGER"/>
+      <property name="misc-thumbnail-max-file-size" type="int" value="1048576"/>
+      <property name="shortcuts-icon-size" type="string" value="THUNAR_ZOOM_LEVEL_LARGE"/>
+    </channel>
+  '';
 
-  # Wayland/GTK HiDPI (adjust to taste; try scale 1 first)
   home.sessionVariables = {
-    GDK_SCALE = "1";         # set to 2 on real HiDPI if needed
-    GDK_DPI_SCALE = "1.0";   # fine tune fractional scaling (e.g., 0.9, 1.1)
+    GDK_SCALE = "1";
+    GDK_DPI_SCALE = "1.0";
     XCURSOR_SIZE = "28";
   };
-
-  # Optional: file-roller for archive integration and ffmpegthumbnailer for videos
-  home.packages = with pkgs; [
-    file-roller
-    ffmpegthumbnailer
-    poppler              # pdf thumbnails
-    libgsf               # office docs thumbnails
-    webp-pixbuf-loader   # webp thumbs in GTK apps
-    adwaita-icon-theme   # fallback icons
-  ];
 }
