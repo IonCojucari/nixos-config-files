@@ -1,7 +1,6 @@
- { config, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home.stateVersion = "25.05";
-
 
   imports = [
     ./hyprland.nix
