@@ -6,7 +6,6 @@
       wayland.enable = true;
       theme = "chili";
     };
-    # Start Hyprland by default
-    defaultSession = "hyprland";
+    defaultSession = "hyprland"; # Set Hyprland as default session
   };
 }

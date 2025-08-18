@@ -17,13 +17,8 @@
         ./hosts/nixos/configuration.nix
         home-manager.nixosModules.home-manager
         {
-          # your HM user config import
           home-manager.users.ion = import ./home/ion/default.nix;
-
-          # make HM back up any conflicting files as *.backup
           home-manager.backupFileExtension = "backup";
-
-          # (optional but common)
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
         }

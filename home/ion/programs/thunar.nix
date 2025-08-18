@@ -1,33 +1,26 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     xfce.thunar-archive-plugin
     xfce.thunar-media-tags-plugin
     file-roller
 
-    # thumbnails
+    # Thumbnails
     ffmpegthumbnailer
     poppler
     libgsf
     webp-pixbuf-loader
-
-    # themes/icons/cursors
-    papirus-icon-theme
-    gnome-themes-extra    # Adwaita etc.
-    adwaita-icon-theme
-    bibata-cursors
   ];
 
-
-  # GTK theming (crisp icons in Thunar)
+  # GTK theming
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";           # or your favorite GTK theme
+      name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
     };
     iconTheme = {
-      name = "Papirus-Dark";           # sharp icon set
+      name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {

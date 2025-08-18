@@ -4,12 +4,12 @@
 
 
   imports = [
-    ./hyprland.nix
-    ./thunar.nix
-    ./waybar.nix
-    ./kitty.nix
-    ./vscode.nix
-    ./powermenu.nix
-    ./wofi.nix
+    ./programs/hyprland.nix
+    ./programs/thunar.nix
+    ./programs/waybar.nix
+    ./programs/kitty.nix
+    ./programs/vscode.nix
+    ./programs/wofi.nix
+    ./scripts/powermenu.nix
   ];
 }

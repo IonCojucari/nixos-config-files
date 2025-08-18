@@ -3,13 +3,11 @@
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
 
-  # System-wide packages for all users
+  # System packages
   environment.systemPackages = with pkgs; [
-    # ---- Desktop essentials ----
+    # Desktop essentials
     hyprpaper
     waybar
-    wofi
-    kitty
     wl-clipboard
     grim
     slurp
@@ -18,24 +16,21 @@
     sddm-chili-theme
 
     # File manager
-    pkgs.xfce.thunar
-    pkgs.xfce.thunar-archive-plugin
-    pkgs.xfce.thunar-volman
-    pkgs.xfce.tumbler
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xfce.tumbler
 
     # Applets
     networkmanagerapplet
 
-    # ---- CLI utilities ----
+    # CLI utilities
     git
     wget
     curl
-    nvme-cli
     unzip
     fastfetch
-    vulkan-tools
     nvtopPackages.amd
     btop
-    tree
   ];
 }

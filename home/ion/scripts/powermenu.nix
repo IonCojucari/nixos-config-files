@@ -30,10 +30,9 @@ let
   '';
 in
 {
-  # Ensure deps and the script are in PATH
+  # Install dependencies and script in PATH
   home.packages = with pkgs; [
-    wofi
-    hyprlock      
-    powermenuBin   
+    hyprlock
+    powermenuBin
   ];
 }

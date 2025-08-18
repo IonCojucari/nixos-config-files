@@ -1,13 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
     programs.waybar = {
       enable = true;
-      package = pkgs.waybar;
-      systemd = {
-        enable = false;
-        target = "graphical-session.target";
-      };
       style = ''
                * {
                  font-family: "JetBrainsMono Nerd Font";
@@ -79,11 +74,6 @@
                  padding-left: 10px;
                  padding-right: 10px;
                }
-               /* #mode { */
-               /* 	margin-left: 10px; */
-               /* 	background-color: rgb(248, 189, 150); */
-               /*     color: rgb(26, 24, 38); */
-               /* } */
          #memory {
                  color: rgb(181, 232, 224);
                }
@@ -93,9 +83,6 @@
          #clock {
                  color: rgb(217, 224, 238);
                }
-        /* #idle_inhibitor {
-                 color: rgb(221, 182, 242);
-               }*/
          #custom-wall {
                  color: #33ccff;
             }
@@ -137,27 +124,26 @@
                  color: #33ccff;
                }
 
-         /* ===== Battery tweaks ===== */
-         /* Clearer default + per-state colors + charging look */
-         #battery {
-           color: #ABE9B3;        /* good/normal = same green as network */
-           opacity: 1;            /* prevent faded look */
-           text-shadow: none;
-         }
-         #battery.good {
-           color: #ABE9B3;
-         }
-         #battery.warning {
-           color: rgb(248, 189, 150); /* orange */
-         }
-         #battery.critical {
-           color: rgb(242, 143, 173); /* pinkish red */
-         }
-         #battery.charging,
-         #battery.plugged {
-           color: #7ebae4;         /* blue while charging/plugged */
-           text-shadow: 0 0 3px rgba(126,186,228,0.5);
-         }
+        /* Battery tweaks */
+        #battery {
+          color: #ABE9B3;
+          opacity: 1;
+          text-shadow: none;
+        }
+        #battery.good {
+          color: #ABE9B3;
+        }
+        #battery.warning {
+          color: rgb(248, 189, 150);
+        }
+        #battery.critical {
+          color: rgb(242, 143, 173);
+        }
+        #battery.charging,
+        #battery.plugged {
+          color: #7ebae4;
+          text-shadow: 0 0 3px rgba(126,186,228,0.5);
+        }
       '';
       settings = [{
         "layer" = "top";
@@ -178,7 +164,7 @@
           "memory"
           "cpu"
           "network"
-          "battery"            # battery renders only if a BAT device exists
+          "battery"            # Shows only when a battery is present
           "custom/powermenu"
           "tray"
         ];
