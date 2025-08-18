@@ -135,6 +135,28 @@
                  font-family: "Hack Nerd Font" ;
                  color: #33ccff;
                }
+
+         /* ===== Battery tweaks ===== */
+         /* Clearer default + per-state colors + charging look */
+         #battery {
+           color: #ABE9B3;        /* good/normal = same green as network */
+           opacity: 1;            /* prevent faded look */
+           text-shadow: none;
+         }
+         #battery.good {
+           color: #ABE9B3;
+         }
+         #battery.warning {
+           color: rgb(248, 189, 150); /* orange */
+         }
+         #battery.critical {
+           color: rgb(242, 143, 173); /* pinkish red */
+         }
+         #battery.charging,
+         #battery.plugged {
+           color: #7ebae4;         /* blue while charging/plugged */
+           text-shadow: 0 0 3px rgba(126,186,228,0.5);
+         }
       '';
       settings = [{
         "layer" = "top";
@@ -154,6 +176,7 @@
           "memory"
           "cpu"
           "network"
+          "battery"            # battery renders only if a BAT device exists
           "custom/powermenu"
           "tray"
         ];
@@ -214,6 +237,16 @@
           "format-wifi" = "󰖩 {essid}";
           "interval" = 1;
           "tooltip" = false;
+        };
+        "battery" = {
+          "interval" = 15;
+          "states" = { "warning" = 25; "critical" = 10; };
+          "format" = "{icon} {capacity}%";
+          "format-charging" = " {capacity}%";
+          "format-plugged"  = " {capacity}%";
+          "format-icons" = [ "" "" "" "" "" ];
+          "tooltip" = true;
+          "tooltip-format" = "{capacity}% — {time} remaining";
         };
         "custom/powermenu" = {
           "format" = "";
