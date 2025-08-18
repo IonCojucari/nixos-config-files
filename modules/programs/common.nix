@@ -5,7 +5,7 @@
 
   # System-wide packages for all users
   environment.systemPackages = with pkgs; [
-    # ---- Desktop essentials ----
+    # Desktop essentials
     hyprpaper
     waybar
     wofi
@@ -17,18 +17,11 @@
     pavucontrol
     sddm-chili-theme
 
-    # File manager
-    pkgs.xfce.thunar
-    pkgs.xfce.thunar-archive-plugin
-    pkgs.xfce.thunar-volman
-    pkgs.xfce.tumbler
-
     # Applets
     networkmanagerapplet
 
-    # ---- CLI utilities ----
+    # CLI utilities
     git
-    wget
     curl
     nvme-cli
     unzip
@@ -36,6 +29,5 @@
     vulkan-tools
     nvtopPackages.amd
     btop
-    tree
   ];
 }

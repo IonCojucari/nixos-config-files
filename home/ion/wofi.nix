@@ -3,22 +3,20 @@
 {
   programs.wofi = {
     enable = true;
-    # optionally pin a fork/build:
-    # package = pkgs.wofi;
 
     settings = {
-      # --- behavior ---
-      show = "drun";                 # default mode
+      # Behavior
+      show = "drun";
       prompt = "Search…";
-      normal_window = true;          # not fullscreen
+      normal_window = true;
       width = 640;
       height = 420;
       location = "center";
       allow_images = true;
       allow_markup = true;
-      insensitive = true;            # case-insensitive
+      insensitive = true;
       matching = "fuzzy";
-      "dpi-aware" = "yes";           # hyphenated keys must be quoted
+      "dpi-aware" = "yes";
       hide_scroll = true;
       no_actions = false;
       show_all = false;
@@ -30,7 +28,6 @@
     };
 
     style = ''
-      /* theme aligned with your Waybar palette */
       window {
         font-family: "JetBrainsMono Nerd Font";
         font-size: 12pt;
@@ -60,7 +57,7 @@
         color: #d9e0ee;
       }
       #entry:selected {
-        background-color: #f8bd96;  /* orange highlight */
+        background-color: #f8bd96;
         color: #1a1826;
       }
       #img { margin-right: 10px; }

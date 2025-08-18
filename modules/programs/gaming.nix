@@ -12,6 +12,5 @@
     mangohud
     goverlay
     protonup-qt
-    steam-run
   ];
 }

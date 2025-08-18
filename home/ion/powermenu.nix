@@ -33,7 +33,7 @@ in
   # Ensure deps and the script are in PATH
   home.packages = with pkgs; [
     wofi
-    hyprlock      
-    powermenuBin   
+    hyprlock
+    powermenuBin
   ];
 }

@@ -1,9 +1,10 @@
-{ pkgs, lib, ... }:
-
+{ ... }:
 {
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   imports = [
     ./hardware-configuration.nix
@@ -17,10 +18,16 @@
   time.timeZone = "Europe/Paris";
   networking.networkmanager.enable = true;
 
-  # User
+  # Users
   users.users.ion = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "audio"
+      "input"
+    ];
     initialPassword = "changeme";
   };
   security.sudo.enable = true;
@@ -33,7 +40,7 @@
     wireplumber.enable = true;
   };
 
-  # Microcode
+  # Microcode updates
   hardware.cpu.amd.updateMicrocode = true;
 
   # Bootloader
