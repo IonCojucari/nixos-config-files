@@ -6,6 +6,13 @@
 
     # Rendered to ~/.config/hypr/hyprland.conf
     settings = {
+
+      input = {
+        kb_layout = "us,fr";          
+        kb_variant = "";
+        kb_options = "grp:alt_shift_toggle";
+      };
+
       # Variables
       "$mod" = "SUPER";
 

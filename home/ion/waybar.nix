@@ -175,8 +175,8 @@
           "cpu"
           "network"
           "battery"
-          "custom/powermenu"
           "tray"
+	  "custom/powermenu"
         ];
         "custom/launcher" = {
           "format" = " ";
