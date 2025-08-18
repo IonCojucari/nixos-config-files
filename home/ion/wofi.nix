@@ -66,11 +66,4 @@
       #img { margin-right: 10px; }
     '';
   };
-
-  #  ensure fonts/helpers are present
-  home.packages = with pkgs; [
-    jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    wl-clipboard
-  ];
 }
