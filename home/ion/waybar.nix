@@ -6,6 +6,8 @@
 }:
 
 {
+  home.packages = with pkgs; [ pamixer ];
+
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;

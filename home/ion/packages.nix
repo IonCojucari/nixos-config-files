@@ -1,0 +1,18 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    # Clipboard and screenshots
+    wl-clipboard
+    grim
+    slurp
+
+    # Audio utilities
+    pavucontrol
+
+    # Monitoring and tools
+    fastfetch
+    vulkan-tools
+    nvtopPackages.amd
+    btop
+  ];
+}
