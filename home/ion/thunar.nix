@@ -4,6 +4,7 @@
     # Thunar
     xfce.thunar
     xfce.thunar-volman
+    xfce.exo
 
     # Thunar plugins
     xfce.thunar-archive-plugin
@@ -53,6 +54,10 @@
       <property name="misc-thumbnail-max-file-size" type="int" value="1048576"/>
       <property name="shortcuts-icon-size" type="string" value="THUNAR_ZOOM_LEVEL_LARGE"/>
     </channel>
+  '';
+
+  xdg.configFile."xfce4/helpers.rc".text = ''
+    TerminalEmulator=kitty
   '';
 
   home.sessionVariables = {
