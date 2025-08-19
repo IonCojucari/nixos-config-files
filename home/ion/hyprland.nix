@@ -1,5 +1,17 @@
 { config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    hyprpaper
+    wl-clipboard
+    grim
+    slurp
+    pamixer
+    swayosd
+    pavucontrol
+    libcanberra-gtk3
+    networkmanagerapplet
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;

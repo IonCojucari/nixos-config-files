@@ -10,5 +10,7 @@
     ./vscode.nix
     ./powermenu.nix
     ./wofi.nix
+    ./packages.nix
+    ./gaming.nix
   ];
 }
