@@ -31,6 +31,7 @@
 
       # Autostart
       "exec-once" = [
+	"swayosd-server"
         "hyprpaper"
         "waybar"
         "nm-applet --indicator"
@@ -64,6 +65,18 @@
         "$mod SHIFT, 2, movetoworkspace, 2"
         "$mod SHIFT, 3, movetoworkspace, 3"
         "$mod SHIFT, 4, movetoworkspace, 4"
+
+  	# Volume 
+  	", XF86AudioRaiseVolume, exec, swayosd-client --output-volume +5"
+  	", XF86AudioLowerVolume, exec, swayosd-client --output-volume -5"
+  	", XF86AudioMute,        exec, swayosd-client --output-volume mute-toggle"
+
+  	# Mic mute
+  	", XF86AudioMicMute,     exec, swayosd-client --input-volume mute-toggle"
+
+  	# Brightness 
+  	", XF86MonBrightnessUp,   exec, swayosd-client --brightness +10"
+  	", XF86MonBrightnessDown, exec, swayosd-client --brightness -10"
       ];
     };
   };

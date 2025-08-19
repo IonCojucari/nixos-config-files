@@ -14,6 +14,7 @@
     grim
     slurp
     pamixer
+    swayosd
     pavucontrol
     sddm-chili-theme
 

@@ -9,4 +9,6 @@
     # Start Hyprland by default
     defaultSession = "hyprland";
   };
+  services.dbus.enable = true;
+
 }
