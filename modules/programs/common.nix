@@ -17,6 +17,7 @@
     swayosd
     pavucontrol
     sddm-chili-theme
+    libcanberra-gtk3
 
     # Applets
     networkmanagerapplet

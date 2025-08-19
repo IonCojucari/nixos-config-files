@@ -37,6 +37,13 @@
         "nm-applet --indicator"
       ];
 
+
+      binde = [
+        ", XF86AudioRaiseVolume, exec, bash -lc 'swayosd-client --output-volume +5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
+        ", XF86AudioLowerVolume, exec, bash -lc 'swayosd-client --output-volume -5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
+        ", XF86AudioMute,        exec, bash -lc 'swayosd-client --output-volume mute-toggle; canberra-gtk-play -i audio-volume-muted >/dev/null 2>&1 &'"
+      ];
+
       # Key bindings
       bind = [
         # Applications
@@ -67,9 +74,9 @@
         "$mod SHIFT, 4, movetoworkspace, 4"
 
   	# Volume 
-  	", XF86AudioRaiseVolume, exec, swayosd-client --output-volume +5"
-  	", XF86AudioLowerVolume, exec, swayosd-client --output-volume -5"
-  	", XF86AudioMute,        exec, swayosd-client --output-volume mute-toggle"
+	#", XF86AudioRaiseVolume, exec, swayosd-client --output-volume +5"
+        #", XF86AudioLowerVolume, exec, swayosd-client --output-volume -5"
+        #", XF86AudioMute,        exec, swayosd-client --output-volume mute-toggle"
 
   	# Mic mute
   	", XF86AudioMicMute,     exec, swayosd-client --input-volume mute-toggle"
