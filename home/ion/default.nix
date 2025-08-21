@@ -8,7 +8,8 @@
     ./waybar.nix
     ./kitty.nix
     ./vscode.nix
-    ./powermenu.nix
+    ./scripts/powermenu.nix
+    ./scripts/cava-internal.nix
     ./wofi.nix
     ./packages.nix
     ./gaming.nix

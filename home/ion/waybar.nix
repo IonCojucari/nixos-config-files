@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ pamixer ];
+  home.packages = with pkgs; [
+    pamixer
+    cava
+  ];
 
   programs.waybar = {
     enable = true;
@@ -9,10 +12,6 @@
     systemd.enable = false;
 
     style = ''
-      /* ================================ */
-      /*   Invisible Rectangles, Black Text */
-      /* ================================ */
-
       * {
         padding: 0;
         margin: 0;
@@ -25,18 +24,15 @@
       }
 
       window#waybar {
-        background: none;    /* bar fully transparent */
-        color: #000000;      /* default text black */
-        margin-top: 15px;    /* still aligned top */
+        background: none;
+        color: #000000;
+        margin-top: 15px;
         margin-left: 15px;
         margin-right: 15px;
       }
 
       window#waybar.hidden { opacity: 1; }
 
-      /* ================================ */
-      /*     Generic module appearance    */
-      /* ================================ */
       #custom-launcher,
       #window,
       #tray,
@@ -57,16 +53,19 @@
         font-family: JetBrainsMono Nerd Font;
         font-size: 18px;
         font-weight: bold;
-        background: none;   /* fully invisible modules */
-        border: none;
+        background: none;
         margin: 0 6px;
         padding: 0 4px;
-        color: #000000;     /* force black text/icons */
+        color: #000000;
       }
 
-      /* ================================ */
-      /*            Workspaces            */
-      /* ================================ */
+      #custom-cava-internal {
+        font-family: "JetBrainsMono Nerd Font";
+        font-size: 14px;
+        padding: 0 8px;
+        color: #000000;
+      }
+
       #workspaces {
         padding: 0 2px;
         background: transparent;
@@ -74,53 +73,30 @@
 
       #workspaces button {
         font-size: 0;
-        min-width: 20px;       /* force button width */
-        min-height: 20px;      /* force button height */
+        min-width: 20px;
+        min-height: 20px;
         padding: 0;
         margin: 0 6px;
-        border-radius: 3px;    /* square with slight rounding */
+        border-radius: 3px;
         background: transparent;
-        border: 2px solid #000000; /* black outline */
+        border: 2px solid #000000;
       }
 
       #workspaces button:hover   { border-color: #000000; background: #000000; }
       #workspaces button.active  { background: #000000; border-color: #000000; }
       #workspaces button.urgent  { background: #000000; border-color: #000000; }
 
-      /* ================================ */
-      /*            Tray                  */
-      /* ================================ */
       #tray { padding: 0 6px; }
 
-      /* ================================ */
-      /*         Custom Powermenu         */
-      /* ================================ */
       #custom-powermenu {
         background: transparent;
         border: none;
-        color: #000000;    /* black glyph */
+        color: #000000;
         font-size: 26px;
         padding: 0 8px;
       }
 
       #custom-powermenu:hover {
-        color: #000000;    /* stays black on hover */
-      }
-
-      /* ================================ */
-      /*       All module colors black    */
-      /* ================================ */
-      #cpu,
-      #temperature,
-      #memory,
-      #backlight,
-      #pulseaudio,
-      #pulseaudio.muted,
-      #network,
-      #battery,
-      #battery.warning,
-      #battery.critical,
-      #clock {
         color: #000000;
       }
     '';
@@ -135,7 +111,6 @@
           "hyprland/workspaces"
           "group/sys-stats"
           "mpd"
-          "custom/cava-internal"
         ];
 
         modules-center = [
@@ -145,6 +120,7 @@
 
         modules-right = [
           "group/sound-bright-network"
+          "custom/cava-internal"  # <-- cava is now here
           "battery"
           "custom/powermenu"
         ];
@@ -186,9 +162,12 @@
         };
 
         "custom/cava-internal" = {
-          exec = "sleep 1s && cava-internal";
-          tooltip = false;
-        };
+  	  exec = "cava-internal";
+  	  return-type = "stdout";   
+  	  interval = "once";      # script runs continuously
+  	  restart-interval = 1;   # restart if it dies
+  	  tooltip = false;
+	};
 
         pulseaudio = {
           scroll-step = 1;
@@ -218,11 +197,11 @@
         };
 
         clock = {
-          interval = 1;
-          format = "{:%I:%M %p}";
-          tooltip = true;
-          tooltip-format = "{=%A; %d %B %Y}\n<tt>{calendar}</tt>";
-        };
+  	  interval = 1;
+  	  format = "{:%H:%M}";  # 24h, e.g. 20:35
+  	  tooltip = true;
+  	  tooltip-format = "{:%A, %d %B %Y}\n<tt>{calendar}</tt>";
+	};
 
         battery = {
           interval = 15;
