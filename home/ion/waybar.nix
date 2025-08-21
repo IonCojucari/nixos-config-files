@@ -10,8 +10,9 @@
 
     style = ''
       /* ================================ */
-      /*            Common CSS            */
+      /*   Invisible Rectangles, Black Text */
       /* ================================ */
+
       * {
         padding: 0;
         margin: 0;
@@ -24,17 +25,17 @@
       }
 
       window#waybar {
-        color: #eceff4;
-        background: none;
+        background: none;    /* bar fully transparent */
+        color: #000000;      /* default text black */
+        margin-top: 15px;    /* still aligned top */
+        margin-left: 15px;
         margin-right: 15px;
-        margin-left: 10px;
       }
 
       window#waybar.hidden { opacity: 1; }
 
       /* ================================ */
       /*     Generic module appearance    */
-      /* (EXCLUDES #workspaces & powermenu) */
       /* ================================ */
       #custom-launcher,
       #window,
@@ -56,13 +57,11 @@
         font-family: JetBrainsMono Nerd Font;
         font-size: 18px;
         font-weight: bold;
-        color: #eceff4;
-        background: #2e3440;
-        border: 2px solid #2e3440;
-        border-radius: 6px;
-        min-height: 20px;
-        margin: 0 4px;
-        padding: 0 6px;
+        background: none;   /* fully invisible modules */
+        border: none;
+        margin: 0 6px;
+        padding: 0 4px;
+        color: #000000;     /* force black text/icons */
       }
 
       /* ================================ */
@@ -75,18 +74,18 @@
 
       #workspaces button {
         font-size: 0;
-        min-width: 20px;
-        min-height: 20px;
+        min-width: 20px;       /* force button width */
+        min-height: 20px;      /* force button height */
         padding: 0;
         margin: 0 6px;
-        border-radius: 9999px;
+        border-radius: 3px;    /* square with slight rounding */
         background: transparent;
-        border: 2px solid #4c566a;
+        border: 2px solid #000000; /* black outline */
       }
 
-      #workspaces button:hover   { border-color: #81a1c1; }
-      #workspaces button.active  { background: #5e81ac; border-color: #5e81ac; }
-      #workspaces button.urgent  { background: #bf616a; border-color: #bf616a; }
+      #workspaces button:hover   { border-color: #000000; background: #000000; }
+      #workspaces button.active  { background: #000000; border-color: #000000; }
+      #workspaces button.urgent  { background: #000000; border-color: #000000; }
 
       /* ================================ */
       /*            Tray                  */
@@ -99,29 +98,31 @@
       #custom-powermenu {
         background: transparent;
         border: none;
-        color: #bf616a;    /* red glyph */
+        color: #000000;    /* black glyph */
         font-size: 26px;
         padding: 0 8px;
       }
 
       #custom-powermenu:hover {
-        color: #d08770;    /* softer red/orange on hover */
+        color: #000000;    /* stays black on hover */
       }
 
       /* ================================ */
-      /*            Modules colors        */
+      /*       All module colors black    */
       /* ================================ */
-      #cpu { color: #d08770; }
-      #temperature { color: #ebcb8b; }
-      #memory { color: #5e81ac; }
-      #backlight { color: #ebcb8b; }
-      #pulseaudio { color: #5e81ac; }
-      #pulseaudio.muted { color: #bf616a; }
-      #network { color: #88c0d0; }
-      #battery { color: #a3be8c; }
-      #battery.warning { color: #d08770; }
-      #battery.critical { color: #bf616a; }
-      #clock { color: #bf616a; }
+      #cpu,
+      #temperature,
+      #memory,
+      #backlight,
+      #pulseaudio,
+      #pulseaudio.muted,
+      #network,
+      #battery,
+      #battery.warning,
+      #battery.critical,
+      #clock {
+        color: #000000;
+      }
     '';
 
     settings = [
