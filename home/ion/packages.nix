@@ -16,5 +16,8 @@
     btop
     pkgs.tree
     pkgs.trezor-suite
+
+
+    hyprpaper
   ];
 }

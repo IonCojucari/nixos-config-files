@@ -13,7 +13,14 @@
     package = pkgs.bibata-cursors;
   };
 
+  
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    preload = /home/ion/Wallpapers/stalker.jpg
+    wallpaper = ,/home/ion/Wallpapers/stalker.jpg
+  '';
 
+
+  
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
