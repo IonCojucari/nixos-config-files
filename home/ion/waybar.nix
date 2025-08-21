@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 {
   home.packages = with pkgs; [ pamixer ];
@@ -11,282 +6,240 @@
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
-    systemd = {
-      enable = false;
-    };
-    style = ''
-            * {
-              font-family: "JetBrainsMono Nerd Font";
-              font-size: 12pt;
-              font-weight: bold;
-              border-radius: 8px;
-              transition-property: background-color;
-              transition-duration: 0.5s;
-            }
-            @keyframes blink_red {
-              to {
-                background-color: rgb(242, 143, 173);
-                color: rgb(26, 24, 38);
-              }
-            }
-            .warning, .critical, .urgent {
-              animation-name: blink_red;
-              animation-duration: 1s;
-              animation-timing-function: linear;
-              animation-iteration-count: infinite;
-              animation-direction: alternate;
-            }
-            window#waybar {
-              background-color: transparent;
-            }
-            window > box {
-              margin-left: 5px;
-              margin-right: 5px;
-              margin-top: 5px;
-              background-color: #1e1e2a;
-              padding: 3px;
-              padding-left:8px;
-              border: 2px none #33ccff;
-            }
-      #workspaces {
-              padding-left: 0px;
-              padding-right: 4px;
-            }
-      #workspaces button {
-              padding-top: 5px;
-              padding-bottom: 5px;
-              padding-left: 6px;
-              padding-right: 6px;
-            }
-      #workspaces button.active {
-              background-color: rgb(181, 232, 224);
-              color: rgb(26, 24, 38);
-            }
-      #workspaces button.urgent {
-              color: rgb(26, 24, 38);
-            }
-      #workspaces button:hover {
-              background-color: rgb(248, 189, 150);
-              color: rgb(26, 24, 38);
-            }
-            tooltip {
-              background: rgb(48, 45, 65);
-            }
-            tooltip label {
-              color: rgb(217, 224, 238);
-            }
-      #custom-launcher {
-              font-size: 20px;
-              padding-left: 8px;
-              padding-right: 6px;
-              color: #7ebae4;
-            }
-      #mode, #clock, #memory, #temperature,#cpu,#mpd, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava-internal {
-              padding-left: 10px;
-              padding-right: 10px;
-            }
-      #memory {
-              color: rgb(181, 232, 224);
-            }
-      #cpu {
-              color: rgb(245, 194, 231);
-            }
-      #clock {
-              color: rgb(217, 224, 238);
-            }
-      #custom-wall {
-              color: #33ccff;
-         }
-      #temperature {
-              color: rgb(150, 205, 251);
-            }
-      #backlight {
-              color: rgb(248, 189, 150);
-            }
-      #pulseaudio {
-              color: rgb(245, 224, 220);
-            }
-      #network {
-              color: #ABE9B3;
-            }
-      #network.disconnected {
-              color: rgb(255, 255, 255);
-            }
-      #custom-powermenu {
-              color: rgb(242, 143, 173);
-              padding-right: 8px;
-            }
-      #tray {
-              padding-right: 8px;
-              padding-left: 10px;
-            }
-      #mpd.paused {
-              color: #414868;
-              font-style: italic;
-            }
-      #mpd.stopped {
-              background: transparent;
-            }
-      #mpd {
-              color: #c0caf5;
-            }
-      #custom-cava-internal{
-              font-family: "Hack Nerd Font" ;
-              color: #33ccff;
-            }
+    systemd.enable = false;
 
-      /* Battery tweaks */
-      #battery {
-        color: #ABE9B3;
-        opacity: 1;
+    style = ''
+      /* ================================ */
+      /*            Common CSS            */
+      /* ================================ */
+      * {
+        padding: 0;
+        margin: 0;
+        min-height: 0;
+        border-radius: 0;
+        border: none;
         text-shadow: none;
+        transition: none;   /* we'll re-enable per-element where needed */
+        box-shadow: none;
       }
-      #battery.good {
-        color: #ABE9B3;
+
+      window#waybar {
+        color: #eceff4;
+        background: none;
+        margin-right: 15px; /* shift right bar inward so power button is visible */
+        margin-left: 10px;  /* also left padding */
       }
-      #battery.warning {
-        color: rgb(248, 189, 150);
+
+      window#waybar.hidden { opacity: 1; }
+
+      /* ================================ */
+      /*     Generic module appearance    */
+      /* (EXCLUDES #workspaces buttons)   */
+      /* ================================ */
+      #custom-launcher,
+      #window,
+      #tray,
+      #cpu,
+      #temperature,
+      #backlight,
+      #memory,
+      #custom-cava-internal,
+      #network,
+      #pulseaudio,
+      #pulseaudio.muted,
+      #battery,
+      #battery.critical,
+      #battery.warning,
+      #clock,
+      #custom-powermenu,
+      #group-sound-bright-network,
+      #group-sys-stats {
+        font-family: JetBrainsMono Nerd Font;
+        font-size: 18px;
+        font-weight: bold;
+        color: #eceff4;
+        background: #2e3440;
+        border: 2px solid #2e3440;
+        border-radius: 6px;
+        min-height: 20px;
+        margin: 0 4px;
+        padding: 0 6px;
       }
-      #battery.critical {
-        color: rgb(242, 143, 173);
+
+      /* ================================ */
+      /*            Workspaces            */
+      /* ================================ */
+
+      /* container spacing (module box) */
+      #workspaces {
+        padding: 0 2px;
+        background: transparent;
       }
-      #battery.charging,
-      #battery.plugged {
-        color: #7ebae4;
-        text-shadow: 0 0 3px rgba(126,186,228,0.5);
+
+      /* round dots (no numbers/squares) */
+      #workspaces button {
+        font-size: 0;                 /* hide glyph; circle shows instead */
+        min-width: 26px;
+        min-height: 26px;
+        padding: 0;
+        margin: 0 6px;
+        border-radius: 9999px;        /* perfect circle */
+        background: transparent;
+        border: 2px solid #4c566a;
+      }
+
+      /* hover/active/urgent states */
+      #workspaces button:hover   { border-color: #81a1c1; }
+      #workspaces button.active  { background: #5e81ac; border-color: #5e81ac; }
+      #workspaces button.urgent  { background: #bf616a; border-color: #bf616a; }
+      
+
+      /* ================================ */
+      /*            Tray                  */
+      /* ================================ */
+      #tray { padding: 0 6px; }
+
+      /* ================================ */
+      /*            Modules colors        */
+      /* ================================ */
+      #cpu { color: #d08770; }
+      #temperature { color: #ebcb8b; }
+      #memory { color: #5e81ac; }
+      #backlight { color: #ebcb8b; }
+      #pulseaudio { color: #5e81ac; }
+      #pulseaudio.muted { color: #bf616a; }
+      #network { color: #88c0d0; }
+      #battery { color: #a3be8c; }
+      #battery.warning { color: #d08770; }
+      #battery.critical { color: #bf616a; }
+      #clock { color: #bf616a; }
+      #custom-powermenu {
+        background: #bf616a;
+        color: #eceff4;
+        font-size: 22px;
+        padding: 0 10px;
       }
     '';
+
     settings = [
       {
-        "layer" = "top";
-        "position" = "top";
+        layer = "top";
+        position = "top";
+
         modules-left = [
           "custom/launcher"
           "hyprland/workspaces"
-          "temperature"
+          "group/sys-stats"
           "mpd"
           "custom/cava-internal"
         ];
+
         modules-center = [
           "clock"
-        ];
-        modules-right = [
-          "pulseaudio"
-          "backlight"
-          "memory"
-          "cpu"
-          "network"
-          "battery"
           "tray"
-	  "custom/powermenu"
         ];
+
+        modules-right = [
+          "group/sound-bright-network"
+          "battery"
+          "custom/powermenu"
+        ];
+
         "custom/launcher" = {
-          "format" = " ";
-          "on-click" = "pkill wofi || wofi --show drun";
-          "tooltip" = false;
+          format = " ";
+          on-click = "pkill wofi || wofi --show drun";
+          tooltip = false;
         };
+
         "hyprland/workspaces" = {
-          "persistent_workspaces" = {
-            "*" = [
-              "1"
-              "2"
-              "3"
-              "4"
-            ];
-          };
-          "on-click" = "hyprctl dispatch workspace {name}";
-          "format" = "{name}";
-          "all-outputs" = true;
-          "format-icons" = {
-            "default" = "●";
-            "active" = "";
-          };
-          "active-only" = false;
+          persistent_workspaces = { "*" = [ "1" "2" "3" "4" ]; };
+          on-click = "hyprctl dispatch workspace {name}";
+          format = "{icon}";
+          /* same icon for all states (hidden by CSS anyway) keeps sizing uniform */
+          format-icons = { default = "●"; active = "●"; urgent = "●"; };
+          all-outputs = true;
+          active-only = false;
         };
+
+        "group/sys-stats" = {
+          orientation = "horizontal";
+          modules = [ "cpu" "temperature" "memory" ];
+        };
+
+        cpu = {
+          interval = 1;
+          format = "󰍛 {usage}%";
+        };
+
+        temperature = {
+          format = " {temperatureC}°C";
+          critical-threshold = 80;
+        };
+
+        memory = {
+          interval = 1;
+          format = "󰻠 {percentage}%";
+          states = { warning = 85; };
+        };
+
         "custom/cava-internal" = {
-          "exec" = "sleep 1s && cava-internal";
-          "tooltip" = false;
+          exec = "sleep 1s && cava-internal";
+          tooltip = false;
         };
-        "pulseaudio" = {
-          "scroll-step" = 1;
-          "format" = "{icon} {volume}%";
-          "format-muted" = "󰖁 Muted";
-          "format-icons" = {
-            "default" = [
-              ""
-              ""
-              ""
-            ];
-          };
-          "on-click" = "pamixer -t";
-          "tooltip" = false;
+
+        pulseaudio = {
+          scroll-step = 1;
+          format = " {volume}%";
+          format-muted = "󰖁 Muted";
+          on-click = "pamixer -t";
+          tooltip = false;
         };
-        "clock" = {
-          "interval" = 1;
-          "format" = "{:%I:%M %p  %A %b %d}";
-          "tooltip" = true;
-          "tooltip-format" = "{=%A; %d %B %Y}\n<tt>{calendar}</tt>";
+
+        backlight = {
+          format = "󰃠 {percent}%";
+          interval = 2;
+          tooltip = true;
         };
-        "memory" = {
-          "interval" = 1;
-          "format" = "󰻠 {percentage}%";
-          "states" = {
-            "warning" = 85;
-          };
+
+        network = {
+          format-disconnected = "󰯡";
+          format-ethernet = "󰒢";
+          format-wifi = "󰖩 {essid}";
+          interval = 3;
+          tooltip = false;
         };
-        "cpu" = {
-          "interval" = 1;
-          "format" = "󰍛 {usage}%";
+
+        "group/sound-bright-network" = {
+          orientation = "horizontal";
+          modules = [ "pulseaudio" "backlight" "network" ];
         };
-        "mpd" = {
-          "max-length" = 25;
-          "format" = "<span foreground='#bb9af7'></span> {title}";
-          "format-paused" = " {title}";
-          "format-stopped" = "<span foreground='#bb9af7'></span>";
-          "format-disconnected" = "";
-          "on-click" = "mpc --quiet toggle";
-          "on-click-right" = "mpc update; mpc ls | mpc add";
-          "on-click-middle" = "kitty --class='ncmpcpp' ncmpcpp ";
-          "on-scroll-up" = "mpc --quiet prev";
-          "on-scroll-down" = "mpc --quiet next";
-          "smooth-scrolling-threshold" = 5;
-          "tooltip-format" = "{title} - {artist} ({elapsedTime:%M:%S}/{totalTime:%H:%M:%S})";
+
+        clock = {
+          interval = 1;
+          format = "{:%I:%M %p}";
+          tooltip = true;
+          tooltip-format = "{=%A; %d %B %Y}\n<tt>{calendar}</tt>";
         };
-        "network" = {
-          "format-disconnected" = "󰯡 Disconnected";
-          "format-ethernet" = "󰒢 Connected!";
-          "format-linked" = "󰖪 {essid} (No IP)";
-          "format-wifi" = "󰖩 {essid}";
-          "interval" = 1;
-          "tooltip" = false;
+
+        battery = {
+          interval = 15;
+          states = { warning = 25; critical = 10; };
+          format = "{icon} {capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
+          format-icons = [ "" "" "" "" "" ];
+          tooltip = true;
         };
-        "battery" = {
-          "interval" = 15;
-          "states" = {
-            "warning" = 25;
-            "critical" = 10;
-          };
-          "format" = "{icon} {capacity}%";
-          "format-charging" = " {capacity}%";
-          "format-plugged" = " {capacity}%";
-          "format-icons" = [
-            ""
-            ""
-            ""
-            ""
-            ""
-          ];
-          "tooltip" = true;
-          "tooltip-format" = "{capacity}% — {time} remaining";
-        };
+
         "custom/powermenu" = {
-          "format" = "";
-          "tooltip" = false;
-          "on-click" = "pkill -f '(^|/)wofi( |$)' || (powermenu & disown)";
+          format = "⏻"; # prettier Unicode power icon
+          tooltip = "Power Menu";
+          on-click = "pkill -f '(^|/)wofi( |$)' || (powermenu & disown)";
         };
-        "tray" = {
-          "icon-size" = 15;
-          "spacing" = 5;
+
+        tray = {
+          "icon-size" = 16;
+          spacing = 6;
         };
       }
     ];

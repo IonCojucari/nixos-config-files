@@ -13,9 +13,8 @@
 
     # Rendered to ~/.config/hypr/hyprland.conf
     settings = {
-
       input = {
-        kb_layout = "us,fr";          
+        kb_layout = "us,fr";
         kb_variant = "";
         kb_options = "grp:alt_shift_toggle";
       };
@@ -36,14 +35,26 @@
         "4, monitor:eDP-1, persistent:true"
       ];
 
+      # Smooth UI feel (optional but recommended)
+      animations = {
+        enabled = true;
+        bezier = "easeOutQuint, 0.23, 1, 0.32, 1";
+        animation = [
+          "windows, 1, 7, easeOutQuint"
+          "windowsOut, 1, 7, easeOutQuint, popin 80%"
+          "border, 1, 10, easeOutQuint"
+          "fade, 1, 7, easeOutQuint"
+          "workspaces, 1, 6, easeOutQuint, slide"
+        ];
+      };
+
       # Autostart
       "exec-once" = [
-	"swayosd-server"
+        "swayosd-server"
         "hyprpaper"
         "waybar"
         "nm-applet --indicator"
       ];
-
 
       binde = [
         ", XF86AudioRaiseVolume, exec, bash -lc 'swayosd-client --output-volume +5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
@@ -61,7 +72,7 @@
         "$mod, Q, killactive"
 
         # Workspaces: relative navigation
-        "$mod, right, workspace,e+1"
+        "$mod, right, workspace, e+1"
         "$mod, left,  workspace, e-1"
 
         # Move focused window to adjacent workspace
@@ -80,17 +91,12 @@
         "$mod SHIFT, 3, movetoworkspace, 3"
         "$mod SHIFT, 4, movetoworkspace, 4"
 
-  	# Volume 
-	#", XF86AudioRaiseVolume, exec, swayosd-client --output-volume +5"
-        #", XF86AudioLowerVolume, exec, swayosd-client --output-volume -5"
-        #", XF86AudioMute,        exec, swayosd-client --output-volume mute-toggle"
+        # Mic mute
+        ", XF86AudioMicMute,     exec, swayosd-client --input-volume mute-toggle"
 
-  	# Mic mute
-  	", XF86AudioMicMute,     exec, swayosd-client --input-volume mute-toggle"
-
-  	# Brightness 
-  	", XF86MonBrightnessUp,   exec, swayosd-client --brightness +10"
-  	", XF86MonBrightnessDown, exec, swayosd-client --brightness -10"
+        # Brightness
+        ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +10"
+        ", XF86MonBrightnessDown, exec, swayosd-client --brightness -10"
       ];
     };
   };
