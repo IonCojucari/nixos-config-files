@@ -14,5 +14,7 @@
     vulkan-tools
     nvtopPackages.amd
     btop
+    pkgs.tree
+    pkgs.trezor-suite
   ];
 }

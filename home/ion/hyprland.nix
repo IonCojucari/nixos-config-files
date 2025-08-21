@@ -7,6 +7,13 @@
     libcanberra-gtk3
   ];
 
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    size = 24;
+    package = pkgs.bibata-cursors;
+  };
+
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -35,7 +42,7 @@
         "4, monitor:eDP-1, persistent:true"
       ];
 
-      # Smooth UI feel (optional but recommended)
+      # Smooth UI feel
       animations = {
         enabled = true;
         bezier = "easeOutQuint, 0.23, 1, 0.32, 1";
@@ -56,13 +63,14 @@
         "nm-applet --indicator"
       ];
 
+      # Multimedia keys
       binde = [
         ", XF86AudioRaiseVolume, exec, bash -lc 'swayosd-client --output-volume +5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
         ", XF86AudioLowerVolume, exec, bash -lc 'swayosd-client --output-volume -5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
         ", XF86AudioMute,        exec, bash -lc 'swayosd-client --output-volume mute-toggle; canberra-gtk-play -i audio-volume-muted >/dev/null 2>&1 &'"
       ];
 
-      # Key bindings
+      # Key bindings (press actions)
       bind = [
         # Applications
         "$mod, Return, exec, kitty"
