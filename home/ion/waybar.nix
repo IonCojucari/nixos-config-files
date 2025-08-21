@@ -19,22 +19,22 @@
         border-radius: 0;
         border: none;
         text-shadow: none;
-        transition: none;   /* we'll re-enable per-element where needed */
+        transition: none;
         box-shadow: none;
       }
 
       window#waybar {
         color: #eceff4;
         background: none;
-        margin-right: 15px; /* shift right bar inward so power button is visible */
-        margin-left: 10px;  /* also left padding */
+        margin-right: 15px;
+        margin-left: 10px;
       }
 
       window#waybar.hidden { opacity: 1; }
 
       /* ================================ */
       /*     Generic module appearance    */
-      /* (EXCLUDES #workspaces buttons)   */
+      /* (EXCLUDES #workspaces & powermenu) */
       /* ================================ */
       #custom-launcher,
       #window,
@@ -51,7 +51,6 @@
       #battery.critical,
       #battery.warning,
       #clock,
-      #custom-powermenu,
       #group-sound-bright-network,
       #group-sys-stats {
         font-family: JetBrainsMono Nerd Font;
@@ -69,35 +68,45 @@
       /* ================================ */
       /*            Workspaces            */
       /* ================================ */
-
-      /* container spacing (module box) */
       #workspaces {
         padding: 0 2px;
         background: transparent;
       }
 
-      /* round dots (no numbers/squares) */
       #workspaces button {
-        font-size: 0;                 /* hide glyph; circle shows instead */
-        min-width: 26px;
-        min-height: 26px;
+        font-size: 0;
+        min-width: 20px;
+        min-height: 20px;
         padding: 0;
         margin: 0 6px;
-        border-radius: 9999px;        /* perfect circle */
+        border-radius: 9999px;
         background: transparent;
         border: 2px solid #4c566a;
       }
 
-      /* hover/active/urgent states */
       #workspaces button:hover   { border-color: #81a1c1; }
       #workspaces button.active  { background: #5e81ac; border-color: #5e81ac; }
       #workspaces button.urgent  { background: #bf616a; border-color: #bf616a; }
-      
 
       /* ================================ */
       /*            Tray                  */
       /* ================================ */
       #tray { padding: 0 6px; }
+
+      /* ================================ */
+      /*         Custom Powermenu         */
+      /* ================================ */
+      #custom-powermenu {
+        background: transparent;
+        border: none;
+        color: #bf616a;    /* red glyph */
+        font-size: 26px;
+        padding: 0 8px;
+      }
+
+      #custom-powermenu:hover {
+        color: #d08770;    /* softer red/orange on hover */
+      }
 
       /* ================================ */
       /*            Modules colors        */
@@ -113,12 +122,6 @@
       #battery.warning { color: #d08770; }
       #battery.critical { color: #bf616a; }
       #clock { color: #bf616a; }
-      #custom-powermenu {
-        background: #bf616a;
-        color: #eceff4;
-        font-size: 22px;
-        padding: 0 10px;
-      }
     '';
 
     settings = [
@@ -155,7 +158,6 @@
           persistent_workspaces = { "*" = [ "1" "2" "3" "4" ]; };
           on-click = "hyprctl dispatch workspace {name}";
           format = "{icon}";
-          /* same icon for all states (hidden by CSS anyway) keeps sizing uniform */
           format-icons = { default = "●"; active = "●"; urgent = "●"; };
           all-outputs = true;
           active-only = false;
@@ -232,7 +234,7 @@
         };
 
         "custom/powermenu" = {
-          format = "⏻"; # prettier Unicode power icon
+          format = "⏻";
           tooltip = "Power Menu";
           on-click = "pkill -f '(^|/)wofi( |$)' || (powermenu & disown)";
         };
