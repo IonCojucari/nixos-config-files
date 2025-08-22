@@ -17,7 +17,6 @@
         padding: 0;
         margin: 0;
         min-height: 0;
-        border-radius: 0;
         border: none;
         text-shadow: none;
         transition: none;
@@ -25,15 +24,14 @@
       }
 
       window#waybar {
-        background: none;
-        color: #000000;
-        margin-top: 15px;
-        margin-left: 15px;
-        margin-right: 15px;
+        background: none;   /* bar background transparent */
+        color: #ffffff;     /* default text white */
+        margin: 40px 15px 0px 15px;  /* push bar 40px down, add side margins */
       }
 
       window#waybar.hidden { opacity: 1; }
 
+      /* Each module → black rounded rectangle */
       #custom-launcher,
       #window,
       #tray,
@@ -52,35 +50,33 @@
       #clock,
       #group-sound-bright-network,
       #group-sys-stats,
-      #group-media {
+      #group-media,
+      #custom-powermenu {
         font-family: JetBrainsMono Nerd Font;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: bold;
-        background: none;
+        background: #000000;   /* black module background */
+        color: #ffffff;        /* white text */
         margin: 0 6px;
-        padding: 0 4px;
-        color: #000000;
+        padding: 4px 8px;
+        border-radius: 6px;    /* rounded corners */
       }
 
       #cava {
-        font-family: "JetBrainsMono Nerd Font";
         font-size: 14px;
         padding: 0 6px;
-        color: #000000;
       }
 
       #mpris {
-        font-family: "JetBrainsMono Nerd Font";
         font-size: 14px;
         padding: 0 6px;
-        color: #000000;
       }
 
       #group-media {
-        background: none;
-        padding: 0 4px;
+        background: #000000;
+        padding: 0 6px;
         margin: 0;
-        color: #000000;
+        border-radius: 6px;
       }
 
       #group-media > * {
@@ -99,26 +95,24 @@
         padding: 0;
         margin: 0 6px;
         border-radius: 3px;
-        background: transparent;
+        background: #000000;
         border: 2px solid #000000;
       }
 
-      #workspaces button:hover   { border-color: #000000; background: #000000; }
-      #workspaces button.active  { background: #000000; border-color: #000000; }
-      #workspaces button.urgent  { background: #000000; border-color: #000000; }
+      #workspaces button:hover   { border-color: #ffffff; background: #000000; }
+      #workspaces button.active  { background: #ffffff; border-color: #ffffff; }
+      #workspaces button.urgent  { background: red; border-color: red; }
 
-      #tray { padding: 0 6px; }
+      #tray {
+        padding: 0 6px;
+      }
 
       #custom-powermenu {
-        background: transparent;
-        border: none;
-        color: #000000;
-        font-size: 26px;
-        padding: 0 8px;
+        font-size: 14px;
       }
 
       #custom-powermenu:hover {
-        color: #000000;
+        color: #ff0000;
       }
     '';
 
@@ -126,6 +120,9 @@
       {
         layer = "top";
         position = "top";
+    	margin-top = 10; 
+    	margin-left = 5;
+    	margin-right = 5;
 
         modules-left = [
           "custom/launcher"
@@ -140,7 +137,7 @@
         ];
 
         modules-right = [
-          "group/media"                # <-- unified cava + mpris
+          "group/media"                # unified cava + mpris
           "group/sound-bright-network"
           "battery"
           "custom/powermenu"
