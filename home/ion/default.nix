@@ -9,7 +9,6 @@
     ./kitty.nix
     ./vscode.nix
     ./scripts/powermenu.nix
-    ./scripts/cava-internal.nix
     ./wofi.nix
     ./packages.nix
     ./gaming.nix

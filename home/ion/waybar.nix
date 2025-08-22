@@ -40,7 +40,7 @@
       #temperature,
       #backlight,
       #memory,
-      #custom-cava-internal,
+      #cava,
       #network,
       #pulseaudio,
       #pulseaudio.muted,
@@ -59,7 +59,7 @@
         color: #000000;
       }
 
-      #custom-cava-internal {
+      #cava {
         font-family: "JetBrainsMono Nerd Font";
         font-size: 14px;
         padding: 0 8px;
@@ -119,8 +119,8 @@
         ];
 
         modules-right = [
+	  "cava"
           "group/sound-bright-network"
-          "custom/cava-internal"  # <-- cava is now here
           "battery"
           "custom/powermenu"
         ];
@@ -161,12 +161,19 @@
           states = { warning = 85; };
         };
 
-        "custom/cava-internal" = {
-  	  exec = "cava-internal";
-  	  return-type = "stdout";   
-  	  interval = "once";      # script runs continuously
-  	  restart-interval = 1;   # restart if it dies
-  	  tooltip = false;
+	cava = {
+  	  framerate = 30;
+  	  autosens = 1;
+  	  bars = 18;
+  	  method = "pulse"; # or "pipewire"
+  	  source = "auto";
+  	  stereo = true;
+  	  reverse = false;
+  	  hide_on_silence = true;
+	  sleep_timer = 3;
+  	  input_delay = 1;
+  	  bar_delimiter = 0; 
+  	  "format-icons" = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
 	};
 
         pulseaudio = {
@@ -198,7 +205,7 @@
 
         clock = {
   	  interval = 1;
-  	  format = "{:%H:%M}";  # 24h, e.g. 20:35
+  	  format = "{:%H:%M}";
   	  tooltip = true;
   	  tooltip-format = "{:%A, %d %B %Y}\n<tt>{calendar}</tt>";
 	};
