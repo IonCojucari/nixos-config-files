@@ -15,8 +15,8 @@
 
   
   xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = /home/ion/Wallpapers/stalker.jpg
-    wallpaper = ,/home/ion/Wallpapers/stalker.jpg
+    preload = /home/ion/Wallpapers/berserk_1.jpg
+    wallpaper = ,/home/ion/Wallpapers/berserk_1.jpg
   '';
 
 
@@ -91,8 +91,8 @@
         "$mod, left,  workspace, e-1"
 
         # Move focused window to adjacent workspace
-        "$mod SHIFT, right, movetoworkspace, +1"
-        "$mod SHIFT, left,  movetoworkspace, -1"
+        "$mod SHIFT, right, movetoworkspace, e+1"
+        "$mod SHIFT, left,  movetoworkspace, e-1"
 
         # Quick jump to numbered workspaces
         "$mod, 1, workspace, 1"

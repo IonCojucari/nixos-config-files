@@ -31,34 +31,34 @@
       window {
         font-family: "JetBrainsMono Nerd Font";
         font-size: 12pt;
-        background-color: rgba(30,30,42,0.96);
-        color: #d9e0ee;
-        border: 2px solid #33ccff;
-        border-radius: 12px;
+        background-color: rgba(0,0,0,0.9); /* Black with slight transparency */
+        color: #ffffff; /* White text */
+        border: 2px solid #ffffff;
+        border-radius: 10px;
         padding: 8px;
       }
       #input {
         margin: 8px;
         padding: 8px 10px;
-        border-radius: 8px;
-        border: 1px solid #414868;
-        background-color: #1e1e2a;
-        color: #d9e0ee;
+        border-radius: 6px;
+        border: 1px solid #666666; /* Gray border */
+        background-color: #111111;
+        color: #ffffff;
       }
       #inner-box {
         margin: 6px 8px 8px 8px;
-        border-radius: 10px;
-        background-color: #181825;
+        border-radius: 8px;
+        background-color: #0d0d0d;
       }
       #entry {
         padding: 8px 10px;
         margin: 3px 6px;
-        border-radius: 8px;
-        color: #d9e0ee;
+        border-radius: 6px;
+        color: #ffffff;
       }
       #entry:selected {
-        background-color: #f8bd96;
-        color: #1a1826;
+        background-color: #cccccc; /* Softer gray highlight */
+        color: #000000;            /* Black text on highlight */
       }
       #img { margin-right: 10px; }
     '';

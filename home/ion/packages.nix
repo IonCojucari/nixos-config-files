@@ -21,5 +21,10 @@
     pamixer
     cava
     hyprpaper
+    pkgs.texlive.combined.scheme-full
+    tectonic
+
+    #temporary 
+    pkgs.google-chrome
   ];
 }

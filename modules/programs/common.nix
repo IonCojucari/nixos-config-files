@@ -2,13 +2,28 @@
 {
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
-
-  # Essential system-wide packages
   environment.systemPackages = with pkgs; [
     git
     curl
     nvme-cli
     unzip
     sddm-chili-theme
+
+    (python3.withPackages (ps: with ps; [
+      numpy
+      pandas
+      requests
+      flask
+      flask-cors
+      flask-limiter
+      pypdf2
+      fpdf
+      bleach
+      gunicorn
+      python-dotenv
+      ps.google-genai
+      bleach      
+    ]))
   ];
+
 }
