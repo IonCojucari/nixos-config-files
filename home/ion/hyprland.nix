@@ -68,6 +68,7 @@
         "hyprpaper"
         "waybar"
         "nm-applet --indicator"
+        "hyprctl dispatch workspace 1"
       ];
 
       # Multimedia keys
