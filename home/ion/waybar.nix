@@ -150,7 +150,7 @@
         };
 
         "hyprland/workspaces" = {
-          persistent_workspaces = { "*" = [ "1" "2" "3" "4" ]; };
+          persistent_workspaces = { "*" = [ 1 2 3 4 ]; };
           on-click = "hyprctl dispatch workspace {name}";
           format = "{icon}";
           format-icons = { default = "●"; active = "●"; urgent = "●"; };

@@ -68,6 +68,7 @@
         "hyprpaper"
         "waybar"
         "nm-applet --indicator"
+        "bash -lc 'for ws in 1 2 3 4; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'"
       ];
 
       # Multimedia keys
