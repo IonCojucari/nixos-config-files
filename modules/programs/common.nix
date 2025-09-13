@@ -7,7 +7,7 @@
     curl
     nvme-cli
     unzip
-    sddm-chili-theme
+    sddm-astronaut
 
     (python3.withPackages (ps: with ps; [
       numpy
