@@ -4,7 +4,12 @@
     sddm = {
       enable = true;
       wayland.enable = true;
-      theme = "chili";
+      theme = "astronaut";
+      settings = {
+        General = {
+          EnableHiDPI = true;
+        };
+      };
     };
     # Start Hyprland by default
     defaultSession = "hyprland";
