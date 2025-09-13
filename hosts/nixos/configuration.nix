@@ -8,7 +8,7 @@
 
   imports = [
     ./hardware-configuration.nix
-    ../../modules/services/login/sddm.nix
+    ../../modules/services/login/greetd.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
     ../../modules/desktop/plumbing.nix
