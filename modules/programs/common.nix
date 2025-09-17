@@ -7,9 +7,7 @@
     curl
     nvme-cli
     unzip
-    sddm-chili-theme
-
-    (python3.withPackages (ps: with ps; [
+      (python3.withPackages (ps: with ps; [
       numpy
       pandas
       requests
