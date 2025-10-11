@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [
@@ -31,6 +31,14 @@
     initialPassword = "changeme";
   };
   security.sudo.enable = true;
+
+  hardware.graphics = { 
+    enable = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      rocmPackages.clr
+    ];
+  };
 
   # Audio
   services.pipewire = {
