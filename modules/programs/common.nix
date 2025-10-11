@@ -7,7 +7,12 @@
     curl
     nvme-cli
     unzip
-      (python3.withPackages (ps: with ps; [
+    vlc
+    rocmPackages.rocm-smi
+    blender
+    cloudcompare
+    kooha
+    (python3.withPackages (ps: with ps; [
       numpy
       pandas
       requests
