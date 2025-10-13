@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [
@@ -8,7 +8,7 @@
 
   imports = [
     ./hardware-configuration.nix
-    ../../modules/services/login/sddm.nix
+      ../../modules/services/login/gdm.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
     ../../modules/desktop/plumbing.nix
@@ -31,6 +31,18 @@
     initialPassword = "changeme";
   };
   security.sudo.enable = true;
+  
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  hardware.graphics = { 
+    enable = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      rocmPackages.clr
+    ];
+  };
 
   # Audio
   services.pipewire = {

@@ -7,8 +7,11 @@
     curl
     nvme-cli
     unzip
-    sddm-chili-theme
-
+    vlc
+    rocmPackages.rocm-smi
+    blender
+    cloudcompare
+    kooha
     (python3.withPackages (ps: with ps; [
       numpy
       pandas
