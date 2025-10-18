@@ -4,14 +4,18 @@
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
     git
+    gcc
     curl
+    gnumake
     nvme-cli
     unzip
+    pkg-config
     vlc
     rocmPackages.rocm-smi
     blender
     cloudcompare
     kooha
+    qbittorrent
     (python3.withPackages (ps: with ps; [
       numpy
       pandas
