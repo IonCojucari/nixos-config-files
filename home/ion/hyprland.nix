@@ -1,11 +1,17 @@
 { config, pkgs, ... }:
 {
+
   home.packages = with pkgs; [
     hyprpaper
     networkmanagerapplet
     swayosd
     libcanberra-gtk3
   ];
+  
+  wayland.windowManager.hyprland.extraConfig = ''
+    env = HYPRSHOT_DIR,/home/ion/Screenshots
+  '';
+
 
   home.pointerCursor = {
     name = "Bibata-Modern-Classic";
@@ -70,7 +76,7 @@
         "nm-applet --indicator"
         "bash -lc 'for ws in 1 2 3 4; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'"
       ];
-
+      
       # Multimedia keys
       binde = [
         ", XF86AudioRaiseVolume, exec, bash -lc 'swayosd-client --output-volume +5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
@@ -80,9 +86,9 @@
 
       # Key bindings (press actions)
       bind = [
-        # Applications
+	# Applications
         "$mod, Return, exec, kitty"
-        "$mod, D, exec, bash -lc 'if pgrep -f \"(^|/)wofi( |$)\" >/dev/null; then pkill -f \"(^|/)wofi( |$)\"; else wofi --show drun & disown; fi'"
+        "$mod, D, exec, bash -lc 'if pgrep -f \"(^|/)wofi( |$)\" >/dev/null; then pkill -f wofi; else wofi --show drun; fi'"
         "$mod, E, exec, thunar"
         "$mod, B, exec, firefox"
         "$mod, Q, killactive"
@@ -113,6 +119,11 @@
         # Brightness
         ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +10"
         ", XF86MonBrightnessDown, exec, swayosd-client --brightness -10"
+
+        # Screenshots (Hyprshot)
+        "$mod, PRINT, exec, hyprshot -m window"   # Screenshot active window
+        ", PRINT, exec, hyprshot -m output"       # Screenshot entire monitor
+        "$mod SHIFT, PRINT, exec, hyprshot -m region" # Screenshot selected region
       ];
     };
   };
