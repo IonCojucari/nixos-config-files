@@ -16,6 +16,7 @@
     cloudcompare
     kooha
     qbittorrent
+    discord
     hyprshot
     (python3.withPackages (ps: with ps; [
       numpy
