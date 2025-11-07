@@ -90,7 +90,7 @@
         "$mod, Return, exec, kitty"
         "$mod, D, exec, bash -lc 'if pgrep -f \"(^|/)wofi( |$)\" >/dev/null; then pkill -f wofi; else wofi --show drun; fi'"
         "$mod, E, exec, thunar"
-        "$mod, B, exec, firefox"
+        "$mod, B, exec, brave"
         "$mod, Q, killactive"
 
         # Workspaces: relative navigation

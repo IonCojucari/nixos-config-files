@@ -2,9 +2,14 @@
 {
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
+  services.udev.packages = with pkgs; [
+    trezor-udev-rules
+  ];
+
   environment.systemPackages = with pkgs; [
     git
     gcc
+    btop-rocm
     curl
     gnumake
     nvme-cli
@@ -12,12 +17,14 @@
     pkg-config
     vlc
     rocmPackages.rocm-smi
+    lact
     blender
     cloudcompare
     kooha
     qbittorrent
     discord
     hyprshot
+    brave
     (python3.withPackages (ps: with ps; [
       numpy
       pandas

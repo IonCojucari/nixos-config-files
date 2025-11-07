@@ -6,6 +6,16 @@
     "flakes"
   ];
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = ["multi-user.target"];
+
+  hardware.opengl = {
+    # Mesa
+    enable = true;
+  };
+
   imports = [
     ./hardware-configuration.nix
       ../../modules/services/login/gdm.nix
@@ -27,6 +37,7 @@
       "video"
       "audio"
       "input"
+      "render"
     ];
     initialPassword = "changeme";
   };
@@ -38,6 +49,7 @@
 
   hardware.graphics = { 
     enable = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
       rocmPackages.clr
