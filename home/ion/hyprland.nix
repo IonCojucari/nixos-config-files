@@ -2,10 +2,9 @@
 {
 
   home.packages = with pkgs; [
-    hyprpaper
     networkmanagerapplet
-    swayosd
-    libcanberra-gtk3
+    pamixer
+    brightnessctl
   ];
   
   wayland.windowManager.hyprland.extraConfig = ''
@@ -71,7 +70,6 @@
 
       # Autostart
       "exec-once" = [
-        "swayosd-server"
         "caelestia shell -d"
         "nm-applet --indicator"
         "bash -lc 'for ws in 1 2 3 4 5; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'"
@@ -79,10 +77,13 @@
       
       # Multimedia keys
       binde = [
-        ", XF86AudioRaiseVolume, exec, bash -lc 'swayosd-client --output-volume +5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
-        ", XF86AudioLowerVolume, exec, bash -lc 'swayosd-client --output-volume -5; canberra-gtk-play -i audio-volume-change >/dev/null 2>&1 &'"
-        ", XF86AudioMute,        exec, bash -lc 'swayosd-client --output-volume mute-toggle; canberra-gtk-play -i audio-volume-muted >/dev/null 2>&1 &'"
-      ];
+  	", XF86AudioRaiseVolume, exec, pamixer -i 5"          # increase volume by 5%
+  	", XF86AudioLowerVolume, exec, pamixer -d 5"          # decrease volume by 5%
+  	", XF86AudioMute,        exec, pamixer -t"            # toggle mute
+
+	", XF86MonBrightnessUp,   exec, brightnessctl set +10%"
+  	", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+	];
 
       # Key bindings (press actions)
       bind = [
@@ -115,12 +116,7 @@
         "$mod SHIFT, 4, movetoworkspace, 4"
         "$mod SHIFT, 5, movetoworkspace, 5"
 
-        # Mic mute
-        ", XF86AudioMicMute,     exec, swayosd-client --input-volume mute-toggle"
 
-        # Brightness
-        ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +10"
-        ", XF86MonBrightnessDown, exec, swayosd-client --brightness -10"
 
         # Screenshots (Hyprshot)
         "$mod, PRINT, exec, hyprshot -m window"   # Screenshot active window

@@ -18,6 +18,7 @@
     vlc
     rocmPackages.rocm-smi
     lact
+    pavucontrol
     blender
     cloudcompare
     kooha

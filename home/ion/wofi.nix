@@ -5,62 +5,75 @@
     enable = true;
 
     settings = {
-      # Behavior
-      show = "drun";
-      prompt = "Search…";
-      normal_window = true;
-      width = 640;
-      height = 420;
-      location = "center";
-      allow_images = true;
-      allow_markup = true;
-      insensitive = true;
-      matching = "fuzzy";
-      "dpi-aware" = "yes";
       hide_scroll = true;
-      no_actions = false;
-      show_all = false;
-      sort_order = "alphabetical";
-      columns = 1;
+      show = "drun";
+      width = "30%";
       lines = 8;
+      line_wrap = "word";
+      term = "kitty";
+      allow_markup = true;
+      always_parse_args = false;
+      show_all = true;
+      print_command = true;
+      layer = "overlay";
+      allow_images = true;
+      sort_order = "alphabetical";
+      gtk_dark = true;
+      prompt = "";
+      image_size = 20;
+      display_generic = false;
+      location = "center";
       key_expand = "Tab";
-      key_exit = "Escape";
+      insensitive = false;
     };
 
     style = ''
-      window {
-        font-family: "JetBrainsMono Nerd Font";
-        font-size: 12pt;
-        background-color: rgba(0,0,0,0.9); /* Black with slight transparency */
-        color: #ffffff; /* White text */
-        border: 2px solid #ffffff;
-        border-radius: 10px;
-        padding: 8px;
+      * {
+        font-family: "JetBrainsMono";
+        color: #c8c8cc;                /* muted grey text */
+        background: transparent;
       }
+
+      #window {
+        background: rgba(25, 18, 38, 0.96);  /* near-black violet */
+        margin: auto;
+        padding: 10px;
+        border-radius: 20px;
+        border: 2px solid #4a3c63;          /* subtle dark violet border */
+      }
+
       #input {
-        margin: 8px;
-        padding: 8px 10px;
-        border-radius: 6px;
-        border: 1px solid #666666; /* Gray border */
-        background-color: #111111;
-        color: #ffffff;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 15px;
+        background-color: rgba(35, 25, 50, 0.95);  /* dark violet input */
+        color: #e0e0e3;
+        border: 1px solid #5a4b73;
       }
-      #inner-box {
-        margin: 6px 8px 8px 8px;
-        border-radius: 8px;
-        background-color: #0d0d0d;
+
+      #outer-box {
+        padding: 20px;
       }
+
+      #img {
+        margin-right: 6px;
+      }
+
       #entry {
-        padding: 8px 10px;
-        margin: 3px 6px;
-        border-radius: 6px;
-        color: #ffffff;
+        padding: 10px;
+        border-radius: 12px;
+        background-color: transparent;
+        transition: background-color 0.15s ease-in-out;
       }
+
       #entry:selected {
-        background-color: #cccccc; /* Softer gray highlight */
-        color: #000000;            /* Black text on highlight */
+        background-color: rgba(60, 45, 80, 0.85);  /* deeper selection violet */
+        border: 1px solid #7a68a0;
       }
-      #img { margin-right: 10px; }
+
+      #text {
+        margin: 2px;
+      }
     '';
   };
 }
