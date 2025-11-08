@@ -2,19 +2,25 @@
   description = "Ion's multi-host NixOS configuration";
 
   inputs = {
-    # Use NixOS 25.05
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Home Manager matching the same release
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    # Home Manager (follows nixpkgs)
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Caelestia Shell and CLI
+    caelestia-shell.url = "github:caelestia-dots/shell";
+    caelestia-shell.inputs.nixpkgs.follows = "nixpkgs";
+
+    caelestia-cli.url = "github:caelestia-dots/cli";
+    caelestia-cli.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, caelestia-shell, caelestia-cli, ... }@inputs:
     let
       system = "x86_64-linux";
 
-      # Small helper to avoid repeating Home Manager setup
+      # Helper for defining hosts with Home Manager
       mkHost = hostName: {
         configuration,
         hardware,
@@ -26,23 +32,29 @@
             configuration
             hardware
             home-manager.nixosModules.home-manager
+
             {
-              home-manager.users.ion = import homeConfig;
-              home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
+
+              # Pass inputs to Home Manager for Caelestia usage
+              home-manager.extraSpecialArgs = { inherit inputs; };
+
+              # Import Home Manager configuration (user module)
+              home-manager.users.ion = import homeConfig;
             }
           ];
         };
     in {
       nixosConfigurations = {
-        # 🖥️ Home PC configuration
+        # 🖥️ Desktop
         homepc = mkHost "homepc" {
           configuration = ./hosts/homepc/configuration.nix;
           hardware = ./hosts/homepc/hardware-configuration.nix;
         };
 
-        # 💻 Laptop configuration
+        # 💻 Laptop
         laptop = mkHost "laptop" {
           configuration = ./hosts/laptop/configuration.nix;
           hardware = ./hosts/laptop/hardware-configuration.nix;
