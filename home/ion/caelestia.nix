@@ -1,20 +1,28 @@
-programs.caelestia = {
-  enable = true;
-  systemd = {
-    enable = false; # if you prefer starting from your compositor
-    target = "graphical-session.target";
-    environment = [];
-  };
-  settings = {
-    bar.status = {
-      showBattery = false;
+{ config, pkgs, ... }:
+
+{
+  programs.caelestia = {
+    enable = true;
+
+    # Optional systemd integration
+    systemd = {
+      enable = true; # or true if you want it to start via systemd
+      target = "graphical-session.target";
+      environment = [];
     };
-    paths.wallpaperDir = "~/Images";
-  };
-  cli = {
-    enable = true; # Also add caelestia-cli to path
+
     settings = {
-      theme.enableGtk = false;
+      bar.status = {
+        showBattery = false;
+      };
+      paths.wallpaperDir = "~/Pictures/Wallpapers";
+    };
+
+    cli = {
+      enable = true; # Also adds caelestia-cli to PATH
+      settings = {
+        theme.enableGtk = false;
+      };
     };
   };
-};
+}

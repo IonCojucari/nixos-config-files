@@ -38,10 +38,10 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
 
-              # Pass inputs to Home Manager for Caelestia usage
+              # Pass inputs to Home Manager (so we can use inputs.caelestia-shell etc.)
               home-manager.extraSpecialArgs = { inherit inputs; };
 
-              # Import Home Manager configuration (user module)
+              # Import user's Home Manager configuration
               home-manager.users.ion = import homeConfig;
             }
           ];

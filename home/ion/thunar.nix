@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+
 {
   home.packages = with pkgs; [
     # Thunar
@@ -46,6 +47,7 @@
     };
   };
 
+  # Thunar general settings
   xdg.configFile."xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = ''
     <?xml version="1.0" encoding="UTF-8"?>
     <channel name="thunar" version="1.0">
@@ -56,10 +58,28 @@
     </channel>
   '';
 
+  # Thunar custom action (UCA)
+  xdg.configFile."Thunar/uca.xml".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <actions>
+      <action>
+        <icon>preferences-desktop-wallpaper</icon>
+        <name>Set as Caelestia wallpaper</name>
+        <unique-id>caelestia-wallpaper</unique-id>
+        <command>bash -lc 'caelestia wallpaper --file "%f"'</command>
+        <description>Set this image as wallpaper using Caelestia</description>
+        <patterns>*.jpg;*.jpeg;*.png;*.bmp;*.webp</patterns>
+        <image-files/>
+      </action>
+    </actions>
+  '';
+
+  # XFCE helpers
   xdg.configFile."xfce4/helpers.rc".text = ''
     TerminalEmulator=kitty
   '';
 
+  # Session variables
   home.sessionVariables = {
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1.0";

@@ -1,16 +1,17 @@
-{ config, pkgs, ... }:
-{
-  home.stateVersion = "25.05";
+{ config, pkgs, inputs, ... }:
 
+{
   imports = [
+    inputs.caelestia-shell.homeManagerModules.default
+    ./caelestia.nix
     ./hyprland.nix
-    ./thunar.nix
-    ./waybar.nix
+    ./wofi.nix
     ./kitty.nix
     ./vscode.nix
-    ./scripts/powermenu.nix
-    ./wofi.nix
-    ./packages.nix
+    ./thunar.nix
     ./gaming.nix
+    ./scripts/powermenu.nix
   ];
+
+  home.stateVersion = "24.05";
 }
