@@ -30,25 +30,25 @@
     style = ''
       * {
         font-family: "JetBrainsMono";
-        color: #c8c8cc;                /* muted grey text */
+        color: #d0d0d5;                /* soft light grey text */
         background: transparent;
       }
 
       #window {
-        background: rgba(25, 18, 38, 0.96);  /* near-black violet */
+        background: rgba(28, 27, 34, 0.96);   /* deep grey with subtle violet tone */
         margin: auto;
         padding: 10px;
         border-radius: 20px;
-        border: 2px solid #4a3c63;          /* subtle dark violet border */
+        border: 2px solid #3d3950;           /* muted grey-violet border */
       }
 
       #input {
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 15px;
-        background-color: rgba(35, 25, 50, 0.95);  /* dark violet input */
-        color: #e0e0e3;
-        border: 1px solid #5a4b73;
+        background-color: rgba(36, 34, 44, 0.95);  /* dark grey input */
+        color: #e4e4e8;
+        border: 1px solid #514b63;                /* soft violet tint */
       }
 
       #outer-box {
@@ -67,8 +67,8 @@
       }
 
       #entry:selected {
-        background-color: rgba(60, 45, 80, 0.85);  /* deeper selection violet */
-        border: 1px solid #7a68a0;
+        background-color: rgba(60, 55, 75, 0.9);  /* darker violet-grey selection */
+        border: 1px solid #6a6080;
       }
 
       #text {

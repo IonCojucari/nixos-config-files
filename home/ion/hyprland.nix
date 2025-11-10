@@ -70,7 +70,6 @@
 
       # Autostart
       "exec-once" = [
-        "caelestia shell -d"
         "nm-applet --indicator"
         "bash -lc 'for ws in 1 2 3 4 5; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'"
       ];

@@ -35,6 +35,11 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+  
+  # Battery power
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
 
   hardware.graphics = { 
     enable = true;

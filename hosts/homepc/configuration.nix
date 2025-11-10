@@ -10,6 +10,9 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
   systemd.packages = with pkgs; [ lact ];
   systemd.services.lactd.wantedBy = ["multi-user.target"];
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
 
   hardware.opengl = {
     # Mesa

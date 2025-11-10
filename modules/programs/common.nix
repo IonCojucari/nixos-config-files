@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs; [
     git
     gcc
+    tree
     btop-rocm
     curl
     gnumake
