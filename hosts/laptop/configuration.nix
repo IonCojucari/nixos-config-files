@@ -17,6 +17,9 @@
 
   time.timeZone = "Europe/Paris";
   networking.networkmanager.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
 
   # Users
   users.users.ion = {
@@ -27,6 +30,7 @@
       "video"
       "audio"
       "input"
+      "docker"
     ];
     initialPassword = "changeme";
   };
