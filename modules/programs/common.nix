@@ -10,6 +10,7 @@
     git
     gcc
     tree
+    zip
     btop-rocm
     curl
     gnumake
@@ -17,6 +18,7 @@
     unzip
     pkg-config
     vlc
+    openssl
     rocmPackages.rocm-smi
     lact
     pavucontrol
@@ -27,6 +29,7 @@
     discord
     hyprshot
     brave
+    trezor-suite
     (python3.withPackages (ps: with ps; [
       numpy
       pandas
