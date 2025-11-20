@@ -6,6 +6,8 @@
     trezor-udev-rules
   ];
 
+
+
   environment.systemPackages = with pkgs; [
     git
     gcc
@@ -19,9 +21,11 @@
     pkg-config
     vlc
     openssl
+    devenv
     rocmPackages.rocm-smi
     lact
     pavucontrol
+    telegram-desktop 
     blender
     cloudcompare
     kooha

@@ -1,11 +1,9 @@
 { ... }:
 {
-  services.xserver = {
+  services.xserver.enable = true;
+  services.displayManager.gdm = {
     enable = true;
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
+    wayland = true;
   };
   services.accounts-daemon.enable = true;
   services.displayManager.defaultSession = "hyprland";

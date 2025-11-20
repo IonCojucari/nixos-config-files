@@ -8,15 +8,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Caelestia Shell and CLI
-    caelestia-shell.url = "github:caelestia-dots/shell";
-    caelestia-shell.inputs.nixpkgs.follows = "nixpkgs";
-
-    caelestia-cli.url = "github:caelestia-dots/cli";
-    caelestia-cli.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, caelestia-shell, caelestia-cli, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
 
@@ -38,7 +32,6 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
 
-              # Pass inputs to Home Manager (so we can use inputs.caelestia-shell etc.)
               home-manager.extraSpecialArgs = { inherit inputs; };
 
               # Import user's Home Manager configuration

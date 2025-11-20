@@ -19,33 +19,10 @@
     webp-pixbuf-loader
 
     # Themes and icons
-    papirus-icon-theme
     gnome-themes-extra
     adwaita-icon-theme
     bibata-cursors
   ];
-
-  # GTK theming
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
-      size = 28;
-    };
-    font = {
-      name = "Inter";
-      size = 11;
-    };
-  };
 
   # Thunar general settings
   xdg.configFile."xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = ''
@@ -64,10 +41,10 @@
     <actions>
       <action>
         <icon>preferences-desktop-wallpaper</icon>
-        <name>Set as Caelestia wallpaper</name>
-        <unique-id>caelestia-wallpaper</unique-id>
-        <command>bash -lc 'caelestia wallpaper --file "%f"'</command>
-        <description>Set this image as wallpaper using Caelestia</description>
+        <name>Set as wallpaper</name>
+        <unique-id>swww-wallpaper</unique-id>
+        <command>bash -lc 'swww img "%f"'</command>
+        <description>Set this image as wallpaper with swww</description>
         <patterns>*.jpg;*.jpeg;*.png;*.bmp;*.webp</patterns>
         <image-files/>
       </action>

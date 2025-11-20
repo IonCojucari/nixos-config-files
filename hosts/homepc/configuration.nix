@@ -35,6 +35,9 @@
     enable = true;
   };
 
+
+  nix.settings.trusted-users = [ "root" "ion" ];
+
   # Users
   users.users.ion = {
     isNormalUser = true;

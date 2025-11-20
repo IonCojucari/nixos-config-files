@@ -3,13 +3,15 @@
 let
   powermenuBin = pkgs.writeShellScriptBin "powermenu" ''
     #!/usr/bin/env bash
+    rofi_cmd="rofi -dmenu -i -p \"Power\" -theme ~/.config/rofi/powermenu-theme.rasi"
+
     choice=$(printf "%s\n" \
       " Poweroff" \
       " Reboot" \
       " Lock" \
       " Suspend" \
       "󰍃 Logout" \
-      | wofi --dmenu --prompt "Power Menu" --hide-scroll --insensitive)
+      | $rofi_cmd)
 
     case "$choice" in
       " Poweroff")  systemctl poweroff ;;
@@ -32,7 +34,7 @@ in
 {
   # Ensure deps and the script are in PATH
   home.packages = with pkgs; [
-    wofi
+    rofi
     hyprlock
     powermenuBin
   ];
