@@ -5,6 +5,8 @@
   services.udev.packages = with pkgs; [
     trezor-udev-rules
   ];
+  services.trezord.enable = true;
+
 
 
 
@@ -34,6 +36,10 @@
     hyprshot
     brave
     trezor-suite
+    exodus
+    dotnet-sdk_8
+    bisq2
+    (vscode-extensions.ms-dotnettools.csharp)
     (python3.withPackages (ps: with ps; [
       numpy
       pandas
