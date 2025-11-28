@@ -8,11 +8,12 @@
 
   imports = [
     ./hardware-configuration.nix
-      ../../modules/services/login/gdm.nix
+    ../../modules/services/login/gdm.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
     ../../modules/desktop/plumbing.nix
     ../../modules/desktop/fonts.nix
+    ../../modules/programs/xmrig.nix
   ];
 
   time.timeZone = "Europe/Paris";

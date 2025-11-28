@@ -90,7 +90,10 @@ in
       "$mod" = "SUPER";
       "$mainMod" = "SUPER";
 
-      monitor = [ ",preferred,auto,auto" ];
+      monitor = [
+        ",highres,auto,auto"
+      ];
+
 
       workspace = [
         "1, default:true, persistent:true"

@@ -9,7 +9,6 @@
 
 
 
-
   environment.systemPackages = with pkgs; [
     git
     gcc
@@ -37,8 +36,10 @@
     brave
     trezor-suite
     exodus
+    feather
     dotnet-sdk_8
     bisq2
+    xmrig
     (vscode-extensions.ms-dotnettools.csharp)
     (python3.withPackages (ps: with ps; [
       numpy

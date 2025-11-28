@@ -26,6 +26,7 @@
     ../../modules/programs/gaming.nix
     ../../modules/desktop/plumbing.nix
     ../../modules/desktop/fonts.nix
+    ../../modules/programs/xmrig.nix
   ];
 
   time.timeZone = "Europe/Paris";
