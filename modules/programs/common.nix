@@ -26,7 +26,8 @@
     rocmPackages.rocm-smi
     lact
     pavucontrol
-    telegram-desktop 
+    telegram-desktop
+    tor-browser
     blender
     cloudcompare
     kooha
