@@ -11,6 +11,7 @@
     noto-fonts-color-emoji
     fantasque-sans-mono
     colloid-gtk-theme
+    gnome.adwaita-icon-theme
   ];
 
   gtk = {
@@ -32,8 +33,8 @@
       };
     };
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme.override { color = "green"; };
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";

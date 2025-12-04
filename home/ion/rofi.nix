@@ -23,7 +23,7 @@
           cycle: false;
           font: "JetBrainsMono Nerd Font Bold 16";
           show-icons: true;
-          icon-theme: "Papirus-Dark";
+          icon-theme: "Adwaita";
           terminal: "kitty";
           drun-display-format: "{icon} {name}";
           location: 0;
