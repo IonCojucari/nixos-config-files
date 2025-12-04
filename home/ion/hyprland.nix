@@ -31,6 +31,8 @@ in
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = 1;
+    ELECTRON_ENABLE_WAYLAND = 1;
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
     __GL_GSYNC_ALLOWED = 0;
     __GL_VRR_ALLOWED = 0;
     SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
@@ -91,7 +93,7 @@ in
       "$mainMod" = "SUPER";
 
       monitor = [
-        ",highres,auto,auto"
+        ",preferred,auto,1"
       ];
 
 
@@ -121,6 +123,10 @@ in
         focus_on_activate = true;
         new_window_takes_over_fullscreen = 2;
         middle_click_paste = false;
+      };
+
+      xwayland = {
+        force_zero_scaling = true;
       };
 
       dwindle = {
