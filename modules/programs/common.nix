@@ -40,6 +40,7 @@
     feather
     dotnet-sdk_8
     bisq2
+    virtualbox
     xmrig
     (vscode-extensions.ms-dotnettools.csharp)
     (python3.withPackages (ps: with ps; [
