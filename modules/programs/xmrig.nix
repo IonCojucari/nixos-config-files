@@ -32,8 +32,11 @@
   environment.shellAliases = {
     mine = "xmrig -c /etc/xmrig/config.json";
   };
-  
+
 
   # Hugepages config
-  boot.kernel.sysctl."vm.nr_hugepages" = 2048;
+  # Reserving thousands of hugepages permanently pins gigabytes of RAM.
+  # Keep the default at zero so memory is available to the system unless
+  # you explicitly raise it before running the miner.
+  boot.kernel.sysctl."vm.nr_hugepages" = 0;
 }

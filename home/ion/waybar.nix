@@ -2,7 +2,7 @@
 let
   colors = {
     font = "JetBrainsMono Nerd Font";
-    font_size = "18px";
+    font_size = "14px";
     font_weight = "bold";
     text_color = "#FBF1C7";
     background_0 = "#1D2021";
@@ -118,7 +118,7 @@ in
     settings.mainBar = with colors; {
       position = "bottom";
       layer = "top";
-      height = 28;
+      height = 24;
       margin-top = 0;
       margin-bottom = 0;
       margin-left = 0;
