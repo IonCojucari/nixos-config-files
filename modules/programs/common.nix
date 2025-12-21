@@ -2,6 +2,7 @@
 {
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
+  programs.virt-manager.enable = true;
   services.udev.packages = with pkgs; [
     trezor-udev-rules
   ];
@@ -34,13 +35,19 @@
     qbittorrent
     discord
     hyprshot
+    gns3-gui
+    gns3-server
+    dynamips
+    vpcs
+    ubridge
+    inetutils
     brave
     trezor-suite
     exodus
     feather
+    libvirt
     dotnet-sdk_8
     bisq2
-    virtualbox
     xmrig
     (vscode-extensions.ms-dotnettools.csharp)
     (python3.withPackages (ps: with ps; [

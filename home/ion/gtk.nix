@@ -11,7 +11,7 @@
     noto-fonts-color-emoji
     fantasque-sans-mono
     colloid-gtk-theme
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
   ];
 
   gtk = {
@@ -34,7 +34,7 @@
     };
     iconTheme = {
       name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";

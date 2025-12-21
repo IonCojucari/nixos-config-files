@@ -13,15 +13,13 @@
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
 
-
   hardware.opengl = {
-    # Mesa
     enable = true;
   };
 
   imports = [
     ./hardware-configuration.nix
-      ../../modules/services/login/gdm.nix
+    ../../modules/services/login/gdm.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
     ../../modules/desktop/plumbing.nix
@@ -35,9 +33,16 @@
   virtualisation.docker = {
     enable = true;
   };
-
+  virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.runAsRoot = false;
+  };
 
   nix.settings.trusted-users = [ "root" "ion" ];
+
+  # group required for ubridge wrapper
+  users.groups.ubridge = { };
 
   # Users
   users.users.ion = {
@@ -50,12 +55,25 @@
       "input"
       "render"
       "docker"
+      "libvirtd"
+      "kvm"
+      "ubridge"   # added here
     ];
     initialPassword = "changeme";
   };
+
+  # create ubridge wrapper with capabilities
+  security.wrappers.ubridge = {
+    owner = "root";
+    group = "ubridge";
+    source = "${pkgs.ubridge}/bin/ubridge";
+    permissions = "u+rx,g+rx,o+rx";
+    capabilities = "cap_net_admin,cap_net_raw=ep";
+  };
+
   security.sudo.enable = true;
+  security.polkit.enable = true;
   
-  # Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
@@ -68,7 +86,6 @@
     ];
   };
 
-  # Audio
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -76,12 +93,11 @@
     wireplumber.enable = true;
   };
 
-  # Microcode updates
   hardware.cpu.amd.updateMicrocode = true;
 
-  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "kvm-amd" ];
 
   system.stateVersion = "25.05";
 }

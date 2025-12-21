@@ -10,5 +10,6 @@
     osu-lazer
     mangohud
     bottles
+    lumafly
   ];
 }
