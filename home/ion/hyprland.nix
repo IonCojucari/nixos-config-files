@@ -19,6 +19,7 @@ in
     networkmanagerapplet
     pamixer
     brightnessctl
+    swayosd
     swww
     wl-clip-persist
     cliphist
@@ -188,6 +189,7 @@ in
       "exec-once" = [
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "swayosd-server"
         "nm-applet --indicator"
         "wl-clip-persist --clipboard both"
         "wl-paste --watch cliphist store"
@@ -197,11 +199,11 @@ in
       ];
 
       binde = [
-        ", XF86AudioRaiseVolume, exec, pamixer -i 5"
-        ", XF86AudioLowerVolume, exec, pamixer -d 5"
-        ", XF86AudioMute,        exec, pamixer -t"
-        ", XF86MonBrightnessUp,   exec, brightnessctl set +10%"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+        ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume +5 --max-volume 100"
+        ", XF86AudioLowerVolume, exec, swayosd-client --output-volume -5 --max-volume 100"
+        ", XF86AudioMute,        exec, swayosd-client --output-volume mute-toggle"
+        ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +10"
+        ", XF86MonBrightnessDown, exec, swayosd-client --brightness -10"
       ];
 
       bind = [
