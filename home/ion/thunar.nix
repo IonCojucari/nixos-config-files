@@ -1,5 +1,13 @@
 { config, pkgs, ... }:
-
+let
+  thunarPluginsWithoutWallpaper = pkgs.runCommand "thunar-plugins-without-wallpaper" { } ''
+    mkdir -p "$out/lib/thunarx-3"
+    ln -s ${pkgs.xfce.thunar}/lib/thunarx-3/thunar-uca.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.xfce.thunar}/lib/thunarx-3/thunar-sbr.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.xfce.thunar-archive-plugin}/lib/thunarx-3/thunar-archive-plugin.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.xfce.thunar-media-tags-plugin}/lib/thunarx-3/thunar-media-tags-plugin.so "$out/lib/thunarx-3/"
+  '';
+in
 {
   home.packages = with pkgs; [
     # Thunar
@@ -53,13 +61,24 @@
 
   # XFCE helpers
   xdg.configFile."xfce4/helpers.rc".text = ''
+    FileManager=thunar
     TerminalEmulator=kitty
   '';
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = [ "thunar.desktop" ];
+      "application/x-gnome-saved-search" = [ "thunar.desktop" ];
+      "x-scheme-handler/file" = [ "thunar.desktop" ];
+    };
+  };
 
   # Session variables
   home.sessionVariables = {
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1.0";
     XCURSOR_SIZE = "28";
+    THUNARX_DIRS = "${thunarPluginsWithoutWallpaper}/lib/thunarx-3";
   };
 }
