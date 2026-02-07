@@ -182,7 +182,7 @@ in
           "fadeSwitch,  0, 1,   easeOutCirc"
           "fadeShadow,  1, 10,  easeOutCirc"
           "fadeDim,     1, 4,   fluent_decel"
-          "workspaces,  1, 4,   easeOutCubic, fade"
+          "workspaces,  1, 4,   easeOutCubic, slide"
         ];
       };
 
