@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   colors = {
     font = "JetBrainsMono Nerd Font";
@@ -25,6 +25,26 @@ in
     cava
     playerctl
   ];
+
+  xdg.configFile."waybar/language-menu.xml".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <interface>
+      <object class="GtkMenu" id="menu">
+        <child>
+          <object class="GtkMenuItem" id="layout-us">
+            <property name="label">English (US)</property>
+            <property name="visible">true</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuItem" id="layout-fr">
+            <property name="label">Francais (FR)</property>
+            <property name="visible">true</property>
+          </object>
+        </child>
+      </object>
+    </interface>
+  '';
 
   programs.waybar = {
     enable = true;
@@ -55,6 +75,18 @@ in
       tooltip label {
         margin: 5px;
         color: ${text_color};
+      }
+      menu {
+        background: ${background_1};
+        border: 1px solid ${border_color};
+        padding: 4px;
+      }
+      menuitem {
+        padding: 4px 8px;
+        color: ${text_color};
+      }
+      menuitem:hover {
+        background: ${background_0};
       }
 
       #workspaces {
@@ -238,11 +270,18 @@ in
       };
       "hyprland/language" = {
         tooltip = true;
-        tooltip-format = "Keyboard layout";
+        tooltip-format = "Current: {}\nLayouts: US, FR\nAlt+Shift still works";
         format = "<span foreground='#FABD2F'> </span> {}";
+        format-us = "US";
         format-fr = "FR";
-        format-en = "US";
-        on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+        menu = "on-click";
+        menu-file = "${config.xdg.configHome}/waybar/language-menu.xml";
+        menu-actions = {
+          layout-us = "hyprctl switchxkblayout current 0";
+          layout-fr = "hyprctl switchxkblayout current 1";
+        };
+        on-scroll-up = "hyprctl switchxkblayout current next";
+        on-scroll-down = "hyprctl switchxkblayout current prev";
       };
       "custom/launcher" = {
         format = "";
