@@ -35,7 +35,7 @@ in
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     __GL_GSYNC_ALLOWED = "0";
     __GL_VRR_ALLOWED = "0";
-    SSH_AUTH_SOCK = "${config.xdg.runtimeDir}/ssh-agent";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
     DISABLE_QT5_COMPAT = "0";
     GDK_BACKEND = "wayland";
     ANKI_WAYLAND = "1";
