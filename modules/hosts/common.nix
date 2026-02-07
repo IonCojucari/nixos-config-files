@@ -20,6 +20,13 @@
 
   virtualisation.docker.enable = true;
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16384; 
+    }
+  ];
+
   users.users.ion = {
     isNormalUser = true;
     extraGroups = [
