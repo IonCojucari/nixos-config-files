@@ -74,6 +74,8 @@ in
     };
   };
 
+  xdg.configFile."mimeapps.list".force = true;
+
   # Session variables
   home.sessionVariables = {
     GDK_SCALE = "1";
