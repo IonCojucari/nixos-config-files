@@ -25,6 +25,7 @@
     gns3-server
     git
     gnumake
+    google-chrome
     hyprshot
     inetutils
     kooha
