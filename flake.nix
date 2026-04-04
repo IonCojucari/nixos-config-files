@@ -55,6 +55,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "backup";
+                home-manager.sharedModules = [ ./modules/home/session-launchers.nix ];
                 home-manager.extraSpecialArgs = {
                   inherit hostName inputs;
                   userSpecs = users;
