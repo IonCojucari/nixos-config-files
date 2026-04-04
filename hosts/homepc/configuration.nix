@@ -7,7 +7,8 @@
 
   imports = [
     ./hardware-configuration.nix
-    ../../modules/hosts/common.nix
+    ../../modules/system/common.nix
+    ../../modules/desktop/hyprland.nix
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
@@ -41,8 +42,6 @@
   security.polkit.enable = true;
 
   hardware.graphics.enable32Bit = true;
-
-  boot.kernelModules = [ "kvm-amd" ];
 
   system.stateVersion = "25.05";
 }

@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   programs.firefox.enable = true;
-  programs.hyprland.enable = true;
   programs.virt-manager.enable = true;
   services.udev.packages = with pkgs; [
     trezor-udev-rules
@@ -26,7 +25,6 @@
     git
     gnumake
     google-chrome
-    hyprshot
     inetutils
     kooha
     lact
@@ -46,9 +44,7 @@
     unzip
     vpcs
     vlc
-    xmrig
     zip
-    (vscode-extensions.ms-dotnettools.csharp)
     (python3.withPackages (ps: with ps; [
       bleach
       flask

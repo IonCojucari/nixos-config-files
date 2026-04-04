@@ -17,14 +17,13 @@ in
 {
   home.packages = with pkgs; [
     networkmanagerapplet
-    pamixer
     brightnessctl
     swayosd
     swww
     wl-clip-persist
     cliphist
     hyprpicker
-    grimblast
+    hyprshot
     grim
     slurp
     hyprlock
@@ -34,30 +33,16 @@ in
     NIXOS_OZONE_WL = "1";
     ELECTRON_ENABLE_WAYLAND = "1";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-    __GL_GSYNC_ALLOWED = "0";
-    __GL_VRR_ALLOWED = "0";
-    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
-    DISABLE_QT5_COMPAT = "0";
     GDK_BACKEND = "wayland";
-    ANKI_WAYLAND = "1";
-    DIRENV_LOG_FORMAT = "";
-    WLR_DRM_NO_ATOMIC = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_QPA_PLATFORM = "wayland";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_STYLE_OVERRIDE = "kvantum";
     MOZ_ENABLE_WAYLAND = "1";
-    WLR_BACKEND = "vulkan";
-    WLR_RENDERER = "vulkan";
-    WLR_NO_HARDWARE_CURSORS = "1";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
-    GTK_THEME = "Colloid-Green-Dark-Gruvbox";
-    GRIMBLAST_HIDE_CURSOR = "0";
   };
 
   home.pointerCursor = {
@@ -66,7 +51,7 @@ in
     package = pkgs.bibata-cursors;
   };
 
-  home.file."Pictures/wallpapers".source = ../../wallpapers;
+  home.file."Pictures/wallpapers".source = ../../../wallpapers;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -96,7 +81,6 @@ in
       monitor = [
         ",preferred,auto,1"
       ];
-
 
       workspace = [
         "1, default:true, persistent:true"

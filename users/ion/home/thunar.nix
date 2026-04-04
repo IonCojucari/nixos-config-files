@@ -26,10 +26,8 @@ in
     libgsf
     webp-pixbuf-loader
 
-    # Themes and icons
+    # Themes
     gnome-themes-extra
-    adwaita-icon-theme
-    bibata-cursors
   ];
 
   # Thunar general settings
@@ -76,7 +74,6 @@ in
 
   xdg.configFile."mimeapps.list".force = true;
 
-  # Session variables
   home.sessionVariables = {
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1.0";

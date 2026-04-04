@@ -22,29 +22,8 @@ in
 {
   home.packages = with pkgs; [
     pamixer
-    cava
     playerctl
   ];
-
-  xdg.configFile."waybar/language-menu.xml".text = ''
-    <?xml version="1.0" encoding="UTF-8"?>
-    <interface>
-      <object class="GtkMenu" id="menu">
-        <child>
-          <object class="GtkMenuItem" id="layout-us">
-            <property name="label">English (US)</property>
-            <property name="visible">true</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkMenuItem" id="layout-fr">
-            <property name="label">Francais (FR)</property>
-            <property name="visible">true</property>
-          </object>
-        </child>
-      </object>
-    </interface>
-  '';
 
   programs.waybar = {
     enable = true;
@@ -179,7 +158,7 @@ in
           };
         };
         format = "  {:%H:%M}";
-        tooltip = "true";
+        tooltip = true;
         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
         format-alt = "  {:%d/%m}";
       };
@@ -188,6 +167,7 @@ in
         disable-scroll = true;
         format = "{icon}";
         on-click = "activate";
+        sort-by-number = true;
         format-icons = {
           "1" = "I";
           "2" = "II";
@@ -199,7 +179,6 @@ in
           "8" = "VIII";
           "9" = "IX";
           "10" = "X";
-          sort-by-number = true;
         };
         persistent-workspaces = {
           "1" = [ ];

@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     heroic
-    mangohud
     goverlay
     protonup-qt
     (writeShellScriptBin "steam-wrapped" ''
@@ -40,9 +39,4 @@
       };
     };
   };
-  # Hide the original Steam desktop entry if it still shows
-  xdg.configFile."autostart/steam.desktop".text = ''
-    [Desktop Entry]
-    Hidden=true
-  '';
 }

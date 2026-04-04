@@ -23,22 +23,9 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 16384; 
+      size = 16384;
     }
   ];
-
-  users.users.ion = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "video"
-      "audio"
-      "input"
-      "docker"
-    ];
-    initialPassword = "changeme";
-  };
 
   security.sudo.enable = true;
 
@@ -62,8 +49,6 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
-
-  hardware.cpu.amd.updateMicrocode = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
