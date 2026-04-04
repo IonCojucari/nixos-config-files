@@ -1,9 +1,24 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  wallpaperDir = "${config.home.homeDirectory}/Pictures/wallpapers";
+  homeDir = config.home.homeDirectory;
+  cursorName = "Bibata-Modern-Ice";
+  cursorSize = 24;
+  fontFamily = "JetBrainsMono Nerd Font";
+  workspaces = map toString (lib.range 1 5);
+  wallpaperDir = "${homeDir}/Pictures/wallpapers";
   wallpaperFile = "${wallpaperDir}/wallpaper.png";
+  initWorkspaces = "bash -lc 'for ws in ${lib.concatStringsSep " " workspaces}; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'";
+  workspaceRules = map (
+    ws: "${ws}${lib.optionalString (ws == "1") ", default:true"}, persistent:true"
+  ) workspaces;
+  workspaceBinds =
+    modifier: dispatcher: map (ws: "$mod${modifier}, ${ws}, ${dispatcher}, ${ws}") workspaces;
   initWallpaper = pkgs.writeShellScriptBin "init-wallpaper" ''
-    #!/usr/bin/env bash
     if ! pgrep -x swww-daemon >/dev/null; then
       swww-daemon --no-cache &
       while ! swww query >/dev/null 2>&1; do
@@ -26,8 +41,8 @@ in
     hyprshot
     grim
     slurp
-    hyprlock
-  ] ++ [ initWallpaper ];
+    initWallpaper
+  ];
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -46,8 +61,8 @@ in
   };
 
   home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    size = 24;
+    name = cursorName;
+    size = cursorSize;
     package = pkgs.bibata-cursors;
   };
 
@@ -55,12 +70,9 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
-    xwayland.enable = true;
-    systemd.enable = true;
 
     extraConfig = ''
-      env = HYPRSHOT_DIR,${config.home.homeDirectory}/Screenshots
+      env = HYPRSHOT_DIR,${homeDir}/Screenshots
     '';
 
     settings = {
@@ -72,23 +84,18 @@ in
         float_switch_override_focus = 1;
         mouse_refocus = 1;
         sensitivity = 0;
-        touchpad = { natural_scroll = true; };
+        touchpad = {
+          natural_scroll = true;
+        };
       };
 
       "$mod" = "SUPER";
-      "$mainMod" = "SUPER";
 
       monitor = [
         ",preferred,auto,1"
       ];
 
-      workspace = [
-        "1, default:true, persistent:true"
-        "2, persistent:true"
-        "3, persistent:true"
-        "4, persistent:true"
-        "5, persistent:true"
-      ];
+      workspace = workspaceRules;
 
       general = {
         layout = "dwindle";
@@ -177,9 +184,9 @@ in
         "nm-applet --indicator"
         "wl-clip-persist --clipboard both"
         "wl-paste --watch cliphist store"
-        "hyprctl setcursor Bibata-Modern-Ice 24"
+        "hyprctl setcursor ${cursorName} ${toString cursorSize}"
         "init-wallpaper"
-        "bash -lc 'for ws in 1 2 3 4 5; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'"
+        initWorkspaces
       ];
 
       binde = [
@@ -201,19 +208,10 @@ in
 
         "$mod SHIFT, right, movetoworkspace, e+1"
         "$mod SHIFT, left,  movetoworkspace, e-1"
-
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-
+      ]
+      ++ workspaceBinds "" "workspace"
+      ++ workspaceBinds " SHIFT" "movetoworkspace"
+      ++ [
         "$mod, PRINT, exec, hyprshot -m window"
         ", PRINT, exec, hyprshot -m output"
         "$mod SHIFT, PRINT, exec, hyprshot -m region"
@@ -263,7 +261,7 @@ in
         {
           text = ''cmd[update:1000] echo "$(date +'%k:%M')"'';
           font_size = 115;
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = fontFamily;
           shadow_passes = 3;
           color = "rgba(235, 219, 178, 0.9)";
           position = "0, -150";
@@ -273,7 +271,7 @@ in
         {
           text = ''cmd[update:1000] echo "- $(date +'%A, %B %d') -" '';
           font_size = 18;
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = fontFamily;
           shadow_passes = 3;
           color = "rgba(235, 219, 178, 0.9)";
           position = "0, -350";
@@ -283,7 +281,7 @@ in
         {
           text = "  $USER";
           font_size = 15;
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = fontFamily;
           color = "rgba(235, 219, 178, 1)";
           position = "0, 284";
           halign = "center";
@@ -298,7 +296,7 @@ in
           outline_thickness = 2;
           dots_spacing = 0.4;
           font_color = "rgba(235, 219, 178, 0.9)";
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = fontFamily;
           outer_color = "rgba(168, 153, 132, 0.95)";
           inner_color = "rgba(102, 92, 84, 0.33)";
           check_color = "rgba(152, 151, 26, 0.95)";

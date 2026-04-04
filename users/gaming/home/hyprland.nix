@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -12,9 +12,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
-    xwayland.enable = true;
-    systemd.enable = true;
 
     settings = {
       monitor = [ ",preferred,auto,1" ];
