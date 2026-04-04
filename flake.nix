@@ -17,6 +17,18 @@
         ion = {
           nixos = ./users/ion/nixos.nix;
           home = ./users/ion/home;
+          session = {
+            name = "hyprland";
+            type = "wayland";
+          };
+        };
+        assma = {
+          nixos = ./users/assma/nixos.nix;
+          home = ./users/assma/home;
+          session = {
+            name = "plasma";
+            type = "wayland";
+          };
         };
       };
 
@@ -28,11 +40,13 @@
           inherit system;
           specialArgs = {
             inherit hostName inputs;
+            userSpecs = users;
           };
           modules =
             modules
             ++ lib.mapAttrsToList (_: spec: spec.nixos) users
             ++ [
+              ./modules/services/login/user-sessions.nix
               home-manager.nixosModules.home-manager
 
               {
@@ -43,6 +57,7 @@
                 home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = {
                   inherit hostName inputs;
+                  userSpecs = users;
                 };
                 home-manager.users = lib.mapAttrs (_: spec: import spec.home) users;
               }

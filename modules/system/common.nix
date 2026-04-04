@@ -7,6 +7,7 @@
     ../programs/xmrig.nix
     ../desktop/plumbing.nix
     ../desktop/fonts.nix
+    ../desktop/plasma.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
