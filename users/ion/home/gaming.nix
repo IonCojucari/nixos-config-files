@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-{
+{ lib, pkgs, hostName, ... }:
+lib.mkIf (hostName == "homepc") {
   home.packages = with pkgs; [
     heroic
     goverlay
@@ -9,12 +9,13 @@
       exec ${bash}/bin/bash -lc "steam \"$@\""
     '')
   ];
+
   xdg.desktopEntries = {
     steam = {
       name = "Steam";
       comment = "Application for managing and playing games on Steam";
       icon = "steam";
-      exec = "steam-wrapped %U";  # Simplified - just call the wrapper directly
+      exec = "steam-wrapped %U";
       terminal = false;
       type = "Application";
       categories = [ "Network" "FileTransfer" "Game" ];

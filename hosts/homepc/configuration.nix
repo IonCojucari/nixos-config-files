@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/system/common.nix
+    ../../modules/programs/gaming.nix
     ../../modules/desktop/hyprland.nix
   ];
 
@@ -19,6 +20,10 @@
 
   nix.settings.trusted-users = [ "root" "ion" ];
 
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "gaming";
+  services.displayManager.gdm.autoLogin.delay = 10;
+
   # group required for ubridge wrapper
   users.groups.ubridge = { };
 
@@ -29,6 +34,8 @@
     "kvm"
     "ubridge"
   ];
+
+  users.users.assma.extraGroups = lib.mkAfter [ "render" ];
 
   # create ubridge wrapper with capabilities
   security.wrappers.ubridge = {

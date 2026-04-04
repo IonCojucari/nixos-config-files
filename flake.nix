@@ -15,6 +15,7 @@
 
       users = {
         ion = {
+          hosts = [ "homepc" "laptop" ];
           nixos = ./users/ion/nixos.nix;
           home = ./users/ion/home;
           session = {
@@ -23,10 +24,20 @@
           };
         };
         assma = {
+          hosts = [ "homepc" "laptop" ];
           nixos = ./users/assma/nixos.nix;
           home = ./users/assma/home;
           session = {
             name = "plasma";
+            type = "wayland";
+          };
+        };
+        gaming = {
+          hosts = [ "homepc" ];
+          nixos = ./users/gaming/nixos.nix;
+          home = ./users/gaming/home;
+          session = {
+            name = "steam-big-picture";
             type = "wayland";
           };
         };
@@ -36,15 +47,21 @@
         hostName,
         modules,
       }:
+        let
+          enabledUsers = lib.filterAttrs (
+            _: spec:
+            !(spec ? hosts) || lib.elem hostName spec.hosts
+          ) users;
+        in
         lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit hostName inputs;
-            userSpecs = users;
+            userSpecs = enabledUsers;
           };
           modules =
             modules
-            ++ lib.mapAttrsToList (_: spec: spec.nixos) users
+            ++ lib.mapAttrsToList (_: spec: spec.nixos) enabledUsers
             ++ [
               ./modules/services/login/user-sessions.nix
               home-manager.nixosModules.home-manager
@@ -55,12 +72,15 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "backup";
-                home-manager.sharedModules = [ ./modules/home/session-launchers.nix ];
+                home-manager.sharedModules = [
+                  ./modules/home/browser-defaults.nix
+                  ./modules/home/session-launchers.nix
+                ];
                 home-manager.extraSpecialArgs = {
                   inherit hostName inputs;
-                  userSpecs = users;
+                  userSpecs = enabledUsers;
                 };
-                home-manager.users = lib.mapAttrs (_: spec: import spec.home) users;
+                home-manager.users = lib.mapAttrs (_: spec: import spec.home) enabledUsers;
               }
             ];
         };

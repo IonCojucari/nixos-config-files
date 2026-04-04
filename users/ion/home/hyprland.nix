@@ -193,7 +193,7 @@ in
       bind = [
         "$mod, Return, exec, kitty"
         "$mod, E, exec, thunar"
-        "$mod, B, exec, brave"
+        "$mod, B, exec, firefox"
         "$mod, Q, killactive"
 
         "$mod, right, workspace, e+1"

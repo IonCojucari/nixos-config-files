@@ -3,7 +3,6 @@
   imports = [
     ../services/login/gdm.nix
     ../programs/common.nix
-    ../programs/gaming.nix
     ../programs/xmrig.nix
     ../desktop/plumbing.nix
     ../desktop/fonts.nix
