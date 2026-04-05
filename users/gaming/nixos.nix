@@ -6,6 +6,7 @@
     extraGroups = [
       "audio"
       "input"
+      "networkmanager"
       "render"
       "video"
     ];

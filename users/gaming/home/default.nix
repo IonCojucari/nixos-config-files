@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./hyprland.nix
+    ./steam.nix
   ];
 
   programs.home-manager.enable = true;

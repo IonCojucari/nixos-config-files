@@ -22,7 +22,7 @@
 
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "gaming";
-  services.displayManager.gdm.autoLogin.delay = 10;
+  services.displayManager.gdm.autoLogin.delay = 1;
 
   # group required for ubridge wrapper
   users.groups.ubridge = { };
