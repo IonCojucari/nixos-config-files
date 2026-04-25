@@ -32,15 +32,6 @@
             type = "wayland";
           };
         };
-        gaming = {
-          hosts = [ "homepc" ];
-          nixos = ./users/gaming/nixos.nix;
-          home = ./users/gaming/home;
-          session = {
-            name = "steam-big-picture";
-            type = "wayland";
-          };
-        };
       };
 
       mkHost = {

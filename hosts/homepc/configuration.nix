@@ -20,10 +20,6 @@
 
   nix.settings.trusted-users = [ "root" "ion" ];
 
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "gaming";
-  services.displayManager.gdm.autoLogin.delay = 1;
-
   # group required for ubridge wrapper
   users.groups.ubridge = { };
 
