@@ -45,6 +45,7 @@
     unzip
     vpcs
     vlc
+    vscode
     zip
     (python3.withPackages (ps: with ps; [
       bleach

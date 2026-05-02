@@ -5,7 +5,6 @@
     ./hyprland.nix
     ./rofi.nix
     ./kitty.nix
-    ./vscode.nix
     ./thunar.nix
     ./gaming.nix
     ./scripts/powermenu.nix

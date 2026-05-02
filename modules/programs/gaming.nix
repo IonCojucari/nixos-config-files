@@ -1,6 +1,17 @@
 { pkgs, ... }:
 
 {
+  nixpkgs.overlays = [
+    (_final: prev: {
+      pkgsi686Linux = prev.pkgsi686Linux.extend (_final32: prev32: {
+        # OpenLDAP's i686 syncrepl test is flaky and blocks Lutris/Bottles FHS builds.
+        openldap = prev32.openldap.overrideAttrs (_old: {
+          doCheck = false;
+        });
+      });
+    })
+  ];
+
   boot.kernel.sysctl = {
     "vm.max_map_count" = 2147483642;
   };
