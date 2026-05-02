@@ -1,5 +1,15 @@
 { pkgs, ... }:
+
 {
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 2147483642;
+  };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; 
+  };
+
   programs.gamemode.enable = true;
   programs.gamescope.capSysNice = true;
 
@@ -9,7 +19,10 @@
     extraCompatPackages = with pkgs; [ proton-ge-bin ];
     gamescopeSession = {
       enable = true;
-      args = [ "--rt" ];
+      args = [
+        "--rt"
+        "--adaptive-sync"
+      ];
       env = {
         ENABLE_GAMESCOPE_WSI = "1";
         PROTON_USE_NTSYNC = "1";
@@ -20,10 +33,23 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
+
   environment.systemPackages = with pkgs; [
     osu-lazer
     mangohud
     bottles
     lumafly
+    winetricks
+    vulkan-tools
+
+    (lutris.override {
+      extraPkgs = pkgs: [
+        winetricks
+        wineWow64Packages.staging
+        vulkan-tools
+        gnutls
+        libnet
+      ];
+    })
   ];
 }

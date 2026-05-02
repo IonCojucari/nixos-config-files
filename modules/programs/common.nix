@@ -36,6 +36,7 @@
     pkg-config
     qbittorrent
     rocmPackages.rocm-smi
+    signal-desktop
     telegram-desktop
     tor-browser
     tree
@@ -53,7 +54,7 @@
       fpdf
       numpy
       pandas
-      pypdf2
+      pypdf
       gunicorn
       python-dotenv
       ps.google-genai

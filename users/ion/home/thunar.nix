@@ -2,22 +2,22 @@
 let
   thunarPluginsWithoutWallpaper = pkgs.runCommand "thunar-plugins-without-wallpaper" { } ''
     mkdir -p "$out/lib/thunarx-3"
-    ln -s ${pkgs.xfce.thunar}/lib/thunarx-3/thunar-uca.so "$out/lib/thunarx-3/"
-    ln -s ${pkgs.xfce.thunar}/lib/thunarx-3/thunar-sbr.so "$out/lib/thunarx-3/"
-    ln -s ${pkgs.xfce.thunar-archive-plugin}/lib/thunarx-3/thunar-archive-plugin.so "$out/lib/thunarx-3/"
-    ln -s ${pkgs.xfce.thunar-media-tags-plugin}/lib/thunarx-3/thunar-media-tags-plugin.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.thunar}/lib/thunarx-3/thunar-uca.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.thunar}/lib/thunarx-3/thunar-sbr.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.thunar-archive-plugin}/lib/thunarx-3/thunar-archive-plugin.so "$out/lib/thunarx-3/"
+    ln -s ${pkgs.thunar-media-tags-plugin}/lib/thunarx-3/thunar-media-tags-plugin.so "$out/lib/thunarx-3/"
   '';
 in
 {
   home.packages = with pkgs; [
     # Thunar
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.exo
+    thunar
+    thunar-volman
+    xfce4-exo
 
     # Thunar plugins
-    xfce.thunar-archive-plugin
-    xfce.thunar-media-tags-plugin
+    thunar-archive-plugin
+    thunar-media-tags-plugin
     file-roller
 
     # Thumbnails
@@ -48,9 +48,9 @@ in
       <action>
         <icon>preferences-desktop-wallpaper</icon>
         <name>Set as wallpaper</name>
-        <unique-id>swww-wallpaper</unique-id>
-        <command>bash -lc 'swww img "%f"'</command>
-        <description>Set this image as wallpaper with swww</description>
+        <unique-id>awww-wallpaper</unique-id>
+        <command>bash -lc 'awww img "%f"'</command>
+        <description>Set this image as wallpaper with awww</description>
         <patterns>*.jpg;*.jpeg;*.png;*.bmp;*.webp</patterns>
         <image-files/>
       </action>

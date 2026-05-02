@@ -19,14 +19,14 @@ let
   workspaceBinds =
     modifier: dispatcher: map (ws: "$mod${modifier}, ${ws}, ${dispatcher}, ${ws}") workspaces;
   initWallpaper = pkgs.writeShellScriptBin "init-wallpaper" ''
-    if ! pgrep -x swww-daemon >/dev/null; then
-      swww-daemon --no-cache &
-      while ! swww query >/dev/null 2>&1; do
+    if ! pgrep -x awww-daemon >/dev/null; then
+      awww-daemon --no-cache &
+      while ! awww query >/dev/null 2>&1; do
         sleep 0.1
       done
     fi
 
-    swww img -t none "${wallpaperFile}" &
+    awww img -t none "${wallpaperFile}" &
   '';
 in
 {
@@ -34,7 +34,7 @@ in
     networkmanagerapplet
     brightnessctl
     swayosd
-    swww
+    awww
     wl-clip-persist
     cliphist
     hyprpicker
@@ -115,6 +115,7 @@ in
         focus_on_activate = true;
         new_window_takes_over_fullscreen = 2;
         middle_click_paste = false;
+        vrr = 3;
       };
 
       xwayland = {
