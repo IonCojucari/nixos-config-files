@@ -1,14 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ../services/login/gdm.nix
-    ../programs/common.nix
-    ../programs/xmrig.nix
-    ../desktop/plumbing.nix
-    ../desktop/fonts.nix
-    ../desktop/plasma.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [
     "nix-command"
@@ -17,8 +8,6 @@
 
   time.timeZone = "Europe/Paris";
   networking.networkmanager.enable = true;
-
-  virtualisation.docker.enable = true;
 
   swapDevices = [
     {

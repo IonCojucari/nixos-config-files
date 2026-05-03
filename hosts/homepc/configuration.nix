@@ -8,41 +8,24 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/system/common.nix
+    ../../modules/services/login/gdm.nix
+    ../../modules/desktop/plumbing.nix
+    ../../modules/desktop/fonts.nix
+    ../../modules/desktop/plasma.nix
+    ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
+    ../../modules/programs/network-lab.nix
     ../../modules/desktop/hyprland.nix
   ];
 
-  virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.runAsRoot = false;
-  };
-
   nix.settings.trusted-users = [ "root" "ion" ];
-
-  # group required for ubridge wrapper
-  users.groups.ubridge = { };
 
   # Users
   users.users.ion.extraGroups = lib.mkAfter [
     "render"
-    "libvirtd"
-    "kvm"
-    "ubridge"
   ];
 
   users.users.assma.extraGroups = lib.mkAfter [ "render" ];
-
-  # create ubridge wrapper with capabilities
-  security.wrappers.ubridge = {
-    owner = "root";
-    group = "ubridge";
-    source = "${pkgs.ubridge}/bin/ubridge";
-    permissions = "u+rx,g+rx,o+rx";
-    capabilities = "cap_net_admin,cap_net_raw=ep";
-  };
-
-  security.polkit.enable = true;
 
   hardware.graphics.enable32Bit = true;
 
