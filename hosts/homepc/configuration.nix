@@ -1,9 +1,10 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 {
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
+
+  services.lact.enable = true;
+  hardware.amdgpu.overdrive.enable = true;
 
   imports = [
     ./hardware-configuration.nix

@@ -92,6 +92,8 @@ in
       "$mod" = "SUPER";
 
       monitor = [
+        "DP-1,3440x1440@120,0x0,1"
+        "DP-2,preferred,3440x0,1"
         ",preferred,auto,1"
       ];
 
