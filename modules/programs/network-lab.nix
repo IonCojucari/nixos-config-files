@@ -7,6 +7,7 @@
     enable = true;
     qemu.runAsRoot = false;
   };
+  services.tailscale.enable = true;
 
   security.polkit.enable = true;
 
