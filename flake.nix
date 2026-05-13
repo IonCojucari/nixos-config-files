@@ -12,6 +12,7 @@
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
 
       users = {
         ion = {
@@ -76,6 +77,16 @@
             ];
         };
     in {
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          git
+          nixd
+          nixfmt
+        ];
+      };
+
+      formatter.${system} = pkgs.nixfmt;
+
       nixosConfigurations = {
         homepc = mkHost {
           hostName = "homepc";
