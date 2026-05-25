@@ -11,23 +11,103 @@ let
   fontFamily = "JetBrainsMono Nerd Font";
   workspaces = map toString (lib.range 1 5);
   wallpaperDir = "${homeDir}/Pictures/wallpapers";
-  wallpaperFile = "${wallpaperDir}/wallpaper.png";
+  defaultWallpaper = "${wallpaperDir}/wallpaper.png";
+  wallpaperStateDir = "${config.xdg.stateHome}/hyprland";
+  wallpaperFile = "${wallpaperStateDir}/current-wallpaper";
   initWorkspaces = "bash -lc 'for ws in ${lib.concatStringsSep " " workspaces}; do hyprctl dispatch workspace $ws; done; hyprctl dispatch workspace 1'";
   workspaceRules = map (
     ws: "${ws}${lib.optionalString (ws == "1") ", default:true"}, persistent:true"
   ) workspaces;
   workspaceBinds =
     modifier: dispatcher: map (ws: "$mod${modifier}, ${ws}, ${dispatcher}, ${ws}") workspaces;
-  initWallpaper = pkgs.writeShellScriptBin "init-wallpaper" ''
-    if ! pgrep -x awww-daemon >/dev/null; then
+  ensureWallpaperDaemon = ''
+    if ! awww query >/dev/null 2>&1; then
       awww-daemon --no-cache &
-      while ! awww query >/dev/null 2>&1; do
+
+      for _ in $(seq 1 50); do
+        awww query >/dev/null 2>&1 && break
         sleep 0.1
       done
     fi
-
-    awww img -t none "${wallpaperFile}" &
   '';
+  initWallpaper = pkgs.writeShellApplication {
+    name = "init-wallpaper";
+    runtimeInputs = with pkgs; [
+      awww
+      coreutils
+    ];
+    text = ''
+      wallpaper_state_dir=${lib.escapeShellArg wallpaperStateDir}
+      current_wallpaper=${lib.escapeShellArg wallpaperFile}
+      default_wallpaper=${lib.escapeShellArg defaultWallpaper}
+
+      mkdir -p "$wallpaper_state_dir"
+
+      if [ ! -r "$current_wallpaper" ]; then
+        ln -sfn "$default_wallpaper" "$current_wallpaper"
+      fi
+
+      ${ensureWallpaperDaemon}
+
+      awww img -t none "$current_wallpaper" &
+    '';
+  };
+  wallpaperPicker = pkgs.writeShellApplication {
+    name = "wallpaper-picker";
+    runtimeInputs = with pkgs; [
+      awww
+      coreutils
+      findutils
+      hyprland
+      libnotify
+      rofi
+    ];
+    text = ''
+      wallpaper_dir=${lib.escapeShellArg wallpaperDir}
+      wallpaper_state_dir=${lib.escapeShellArg wallpaperStateDir}
+      current_wallpaper=${lib.escapeShellArg wallpaperFile}
+
+      choice=$(
+        cd "$wallpaper_dir"
+        find . -type f \( \
+          -iname '*.jpg' -o \
+          -iname '*.jpeg' -o \
+          -iname '*.png' -o \
+          -iname '*.webp' -o \
+          -iname '*.bmp' -o \
+          -iname '*.avif' \
+        \) -printf '%P\n' \
+          | sort \
+          | rofi -dmenu -i -p "Wallpaper"
+      )
+
+      [ -n "$choice" ] || exit 0
+
+      wallpaper="$wallpaper_dir/$choice"
+
+      if [ ! -f "$wallpaper" ]; then
+        notify-send "Wallpaper not found" "$choice"
+        exit 1
+      fi
+
+      mkdir -p "$wallpaper_state_dir"
+      ln -sfn "$wallpaper" "$current_wallpaper"
+
+      ${ensureWallpaperDaemon}
+
+      transition_pos=$(hyprctl cursorpos 2>/dev/null | tr -d ' ' || true)
+      [ -n "$transition_pos" ] || transition_pos=center
+
+      awww img \
+        --transition-type grow \
+        --transition-duration 0.7 \
+        --transition-fps 60 \
+        --transition-pos "$transition_pos" \
+        "$current_wallpaper"
+
+      notify-send "Wallpaper changed" "$choice"
+    '';
+  };
 in
 {
   home.packages = with pkgs; [
@@ -42,7 +122,21 @@ in
     grim
     slurp
     initWallpaper
+    wallpaperPicker
   ];
+
+  xdg.dataFile."applications/wallpaper-picker.desktop".text = ''
+    [Desktop Entry]
+    Name=Wallpaper Picker
+    GenericName=Wallpaper Picker
+    Comment=Choose a Hyprland wallpaper
+    Exec=${wallpaperPicker}/bin/wallpaper-picker
+    Icon=preferences-desktop-wallpaper
+    Terminal=false
+    Type=Application
+    Categories=Settings;DesktopSettings;
+    StartupNotify=false
+  '';
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -204,6 +298,7 @@ in
         "$mod, Return, exec, kitty"
         "$mod, E, exec, thunar"
         "$mod, B, exec, firefox"
+        "$mod, W, exec, wallpaper-picker"
         "$mod, Q, killactive"
 
         "$mod, right, workspace, e+1"

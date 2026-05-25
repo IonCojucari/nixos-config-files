@@ -16,6 +16,7 @@ let
   torrentClient = [ "org.qbittorrent.qBittorrent.desktop" ];
   archiveManager = [ "org.gnome.FileRoller.desktop" ];
   mediaPlayer = [ "vlc.desktop" ];
+  spreadsheetEditor = [ "org.gnumeric.gnumeric.desktop" ];
   imageMimeTypes = [
     "image/jpeg"
     "image/png"
@@ -40,6 +41,19 @@ let
     "image/x-portable-anymap"
     "image/qoi"
   ];
+  spreadsheetMimeTypes = [
+    "text/csv"
+    "text/x-csv"
+    "application/csv"
+    "application/x-csv"
+    "text/comma-separated-values"
+    "application/tab-separated-values"
+    "text/tab-separated-values"
+    "text/spreadsheet"
+    "application/vnd.ms-excel"
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    "application/vnd.oasis.opendocument.spreadsheet"
+  ];
 in
 {
   home.packages = with pkgs; [
@@ -59,6 +73,7 @@ in
     libgsf
     webp-pixbuf-loader
     loupe
+    gnumeric
 
     # Themes
     gnome-themes-extra
@@ -75,18 +90,23 @@ in
     </channel>
   '';
 
-  # Thunar custom action (UCA)
+  # Thunar custom actions (UCA)
   xdg.configFile."Thunar/uca.xml".text = ''
     <?xml version="1.0" encoding="UTF-8"?>
     <actions>
       <action>
-        <icon>preferences-desktop-wallpaper</icon>
-        <name>Set as wallpaper</name>
-        <unique-id>awww-wallpaper</unique-id>
-        <command>bash -lc 'awww img "%f"'</command>
-        <description>Set this image as wallpaper with awww</description>
-        <patterns>*.jpg;*.jpeg;*.png;*.bmp;*.webp</patterns>
+        <icon>utilities-terminal</icon>
+        <name>Open terminal here</name>
+        <unique-id>kitty-open-terminal-here</unique-id>
+        <command>${pkgs.bash}/bin/bash -lc 'target=$1; if [ -f "$target" ]; then target=$(${pkgs.coreutils}/bin/dirname "$target"); fi; exec ${pkgs.kitty}/bin/kitty --working-directory "$target"' sh "%f"</command>
+        <description>Open Kitty in this location</description>
+        <patterns>*</patterns>
+        <directories/>
+        <text-files/>
         <image-files/>
+        <audio-files/>
+        <video-files/>
+        <other-files/>
       </action>
     </actions>
   '';
@@ -133,7 +153,8 @@ in
       "video/x-msvideo" = mediaPlayer;
       "video/quicktime" = mediaPlayer;
     }
-    // lib.genAttrs imageMimeTypes (_: imageViewer);
+    // lib.genAttrs imageMimeTypes (_: imageViewer)
+    // lib.genAttrs spreadsheetMimeTypes (_: spreadsheetEditor);
   };
 
   xdg.dataFile."applications/org.gnome.Loupe.desktop".text = ''
@@ -147,6 +168,20 @@ in
     Type=Application
     Categories=GNOME;GTK;Graphics;Viewer;
     MimeType=${lib.concatStringsSep ";" imageMimeTypes};
+    StartupNotify=true
+  '';
+
+  xdg.dataFile."applications/org.gnumeric.gnumeric.desktop".text = ''
+    [Desktop Entry]
+    Name=Gnumeric
+    GenericName=Spreadsheet
+    Comment=View and edit spreadsheets
+    Exec=${pkgs.gnumeric}/bin/gnumeric --name org.gnumeric.gnumeric %U
+    Icon=${pkgs.gnumeric}/share/icons/hicolor/256x256/apps/org.gnumeric.gnumeric.png
+    Terminal=false
+    Type=Application
+    Categories=Office;Spreadsheet;
+    MimeType=${lib.concatStringsSep ";" spreadsheetMimeTypes};
     StartupNotify=true
   '';
 
