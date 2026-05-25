@@ -7,6 +7,8 @@
     defaultApplications = {
       "text/html" = [ "firefox.desktop" ];
       "application/xhtml+xml" = [ "firefox.desktop" ];
+      "application/pdf" = [ "firefox.desktop" ];
+      "application/x-pdf" = [ "firefox.desktop" ];
       "x-scheme-handler/http" = [ "firefox.desktop" ];
       "x-scheme-handler/https" = [ "firefox.desktop" ];
       "x-scheme-handler/about" = [ "firefox.desktop" ];

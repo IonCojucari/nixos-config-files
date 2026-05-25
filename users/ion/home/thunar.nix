@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   thunarPluginsWithoutWallpaper = pkgs.runCommand "thunar-plugins-without-wallpaper" { } ''
     mkdir -p "$out/lib/thunarx-3"
@@ -7,6 +12,34 @@ let
     ln -s ${pkgs.thunar-archive-plugin}/lib/thunarx-3/thunar-archive-plugin.so "$out/lib/thunarx-3/"
     ln -s ${pkgs.thunar-media-tags-plugin}/lib/thunarx-3/thunar-media-tags-plugin.so "$out/lib/thunarx-3/"
   '';
+  imageViewer = [ "org.gnome.Loupe.desktop" ];
+  torrentClient = [ "org.qbittorrent.qBittorrent.desktop" ];
+  archiveManager = [ "org.gnome.FileRoller.desktop" ];
+  mediaPlayer = [ "vlc.desktop" ];
+  imageMimeTypes = [
+    "image/jpeg"
+    "image/png"
+    "image/gif"
+    "image/webp"
+    "image/tiff"
+    "image/bmp"
+    "image/avif"
+    "image/heic"
+    "image/jxl"
+    "image/svg+xml"
+    "image/svg+xml-compressed"
+    "image/x-tga"
+    "image/vnd-ms.dds"
+    "image/x-dds"
+    "image/vnd.microsoft.icon"
+    "image/x-icon"
+    "image/x-exr"
+    "image/x-portable-bitmap"
+    "image/x-portable-graymap"
+    "image/x-portable-pixmap"
+    "image/x-portable-anymap"
+    "image/qoi"
+  ];
 in
 {
   home.packages = with pkgs; [
@@ -25,6 +58,7 @@ in
     poppler
     libgsf
     webp-pixbuf-loader
+    loupe
 
     # Themes
     gnome-themes-extra
@@ -69,8 +103,52 @@ in
       "inode/directory" = [ "thunar.desktop" ];
       "application/x-gnome-saved-search" = [ "thunar.desktop" ];
       "x-scheme-handler/file" = [ "thunar.desktop" ];
-    };
+
+      "application/x-bittorrent" = torrentClient;
+      "x-scheme-handler/magnet" = torrentClient;
+
+      "application/zip" = archiveManager;
+      "application/x-7z-compressed" = archiveManager;
+      "application/vnd.rar" = archiveManager;
+      "application/x-rar-compressed" = archiveManager;
+      "application/x-rar" = archiveManager;
+      "application/x-tar" = archiveManager;
+      "application/x-compressed-tar" = archiveManager;
+      "application/x-bzip-compressed-tar" = archiveManager;
+      "application/x-xz-compressed-tar" = archiveManager;
+      "application/gzip" = archiveManager;
+      "application/bzip2" = archiveManager;
+      "application/x-bzip2" = archiveManager;
+      "application/x-xz" = archiveManager;
+      "application/zstd" = archiveManager;
+      "application/x-zstd-compressed-tar" = archiveManager;
+
+      "audio/mpeg" = mediaPlayer;
+      "audio/flac" = mediaPlayer;
+      "audio/ogg" = mediaPlayer;
+      "audio/wav" = mediaPlayer;
+      "video/mp4" = mediaPlayer;
+      "video/x-matroska" = mediaPlayer;
+      "video/webm" = mediaPlayer;
+      "video/x-msvideo" = mediaPlayer;
+      "video/quicktime" = mediaPlayer;
+    }
+    // lib.genAttrs imageMimeTypes (_: imageViewer);
   };
+
+  xdg.dataFile."applications/org.gnome.Loupe.desktop".text = ''
+    [Desktop Entry]
+    Name=Image Viewer
+    GenericName=Image Viewer
+    Comment=Browse and view images
+    Exec=${pkgs.loupe}/bin/loupe %U
+    Icon=${pkgs.loupe}/share/icons/hicolor/scalable/apps/org.gnome.Loupe.svg
+    Terminal=false
+    Type=Application
+    Categories=GNOME;GTK;Graphics;Viewer;
+    MimeType=${lib.concatStringsSep ";" imageMimeTypes};
+    StartupNotify=true
+  '';
 
   xdg.configFile."mimeapps.list".force = true;
 
