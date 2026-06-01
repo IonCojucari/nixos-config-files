@@ -111,6 +111,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    blueman
     networkmanagerapplet
     brightnessctl
     swayosd
@@ -278,6 +279,7 @@ in
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swayosd-server"
+        "blueman-applet"
         "nm-applet --indicator"
         "wl-clip-persist --clipboard both"
         "wl-paste --watch cliphist store"
@@ -298,7 +300,7 @@ in
         "$mod, Return, exec, kitty"
         "$mod, E, exec, thunar"
         "$mod, B, exec, firefox"
-        "$mod, W, exec, wallpaper-picker"
+        "$mod, W, exec, ${wallpaperPicker}/bin/wallpaper-picker"
         "$mod, Q, killactive"
 
         "$mod, right, workspace, e+1"

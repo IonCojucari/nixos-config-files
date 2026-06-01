@@ -10,5 +10,9 @@
     signal-desktop
     telegram-desktop
     vlc
+    zathura
+    poppler-utils
+    imagemagick
+    texlive.combined.scheme-full
   ];
 }
