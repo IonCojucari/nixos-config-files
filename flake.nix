@@ -6,9 +6,11 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    catppuccin.url = "github:catppuccin/nix/release-26.05";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, catppuccin, ... }@inputs:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -20,7 +22,7 @@
           nixos = ./users/ion/nixos.nix;
           home = ./users/ion/home;
           session = {
-            name = "hyprland";
+            name = "niri";
             type = "wayland";
           };
         };

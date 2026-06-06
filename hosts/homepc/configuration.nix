@@ -7,7 +7,7 @@
     ../../modules/desktop/plumbing.nix
     ../../modules/desktop/fonts.nix
     ../../modules/desktop/plasma.nix
-    ../../modules/desktop/hyprland.nix
+    ../../modules/desktop/niri.nix
     ../../modules/programs/common.nix
     ../../modules/programs/gaming.nix
     ../../modules/programs/network-lab.nix

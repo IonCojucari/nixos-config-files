@@ -2,14 +2,12 @@
 {
   imports = [
     ./packages.nix
-    ./hyprland.nix
-    ./rofi.nix
+    ./theme.nix
+    ./niri.nix
+    ./noctalia.nix
     ./kitty.nix
     ./thunar.nix
     ./gaming.nix
-    ./scripts/powermenu.nix
-    ./waybar.nix
-    ./swaync.nix
     ./gtk.nix
   ];
 

@@ -8,7 +8,7 @@
     ../../modules/desktop/fonts.nix
     ../../modules/desktop/plasma.nix
     ../../modules/programs/common.nix
-    ../../modules/desktop/hyprland.nix
+    ../../modules/desktop/niri.nix
   ];
 
   system.stateVersion = "25.05";
