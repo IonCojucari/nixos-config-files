@@ -6,10 +6,12 @@
       "wheel"
       "networkmanager"
       "video"
+      "render"
       "audio"
       "input"
       "docker"
+      "lp"
+      "scanner"
     ];
-    initialPassword = "changeme";
   };
 }

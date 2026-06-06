@@ -32,6 +32,7 @@
     nixd
     nixfmt
     nvme-cli
+    claude-code
     openssl
     pkg-config
     rocmPackages.rocm-smi

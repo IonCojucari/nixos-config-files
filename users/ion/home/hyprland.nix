@@ -110,6 +110,13 @@ let
   };
 in
 {
+  home.activation.ensureNwgDisplaysFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p "${config.xdg.configHome}/hypr"
+    touch \
+      "${config.xdg.configHome}/hypr/monitors.conf" \
+      "${config.xdg.configHome}/hypr/workspaces.conf"
+  '';
+
   home.packages = with pkgs; [
     blueman
     networkmanagerapplet
@@ -168,6 +175,8 @@ in
 
     extraConfig = ''
       env = HYPRSHOT_DIR,${homeDir}/Screenshots
+      source = ${config.xdg.configHome}/hypr/monitors.conf
+      source = ${config.xdg.configHome}/hypr/workspaces.conf
     '';
 
     settings = {
@@ -187,8 +196,8 @@ in
       "$mod" = "SUPER";
 
       monitor = [
-        "DP-1,3440x1440@120,0x0,1"
-        "DP-2,preferred,3440x0,1"
+        "DP-2,preferred,0x0,1"
+        "HDMI-A-1,3440x1440@100,2560x0,1"
         ",preferred,auto,1"
       ];
 

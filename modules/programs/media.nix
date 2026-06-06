@@ -13,6 +13,5 @@
     zathura
     poppler-utils
     imagemagick
-    texlive.combined.scheme-full
   ];
 }

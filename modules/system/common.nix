@@ -9,6 +9,54 @@
   time.timeZone = "Europe/Paris";
   networking.networkmanager.enable = true;
 
+  services.printing = {
+    enable = true;
+    webInterface = true;
+    browsed.enable = true;
+    drivers = with pkgs; [
+      brgenml1cupswrapper
+      brgenml1lpr
+      brlaser
+      cnijfilter2
+      cups-bjnp
+      epson-escpr
+      epson-escpr2
+      foo2zjs
+      foomatic-db
+      foomatic-db-engine
+      foomatic-db-nonfree
+      foomatic-db-ppds
+      gutenprint
+      gutenprintBin
+      hplipWithPlugin
+      samsung-unified-linux-driver
+      splix
+    ];
+  };
+
+  services.ipp-usb.enable = true;
+  services.system-config-printer.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  hardware.sane = {
+    enable = true;
+    openFirewall = true;
+    extraBackends = with pkgs; [
+      hplipWithPlugin
+      sane-airscan
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    simple-scan
+    system-config-printer
+  ];
+
   swapDevices = [
     {
       device = "/var/lib/swapfile";

@@ -16,11 +16,6 @@
     "vm.max_map_count" = 2147483642;
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true; 
-  };
-
   programs.gamemode.enable = true;
   programs.gamescope.capSysNice = true;
 

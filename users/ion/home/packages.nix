@@ -2,11 +2,10 @@
 {
   home.packages = with pkgs; [
     wl-clipboard
-
     fastfetch
+    nwg-displays
     vulkan-tools
     nvtopPackages.amd
-    pulseaudio
     cava
     texlive.combined.scheme-full
     tectonic

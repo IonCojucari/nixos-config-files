@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.virt-manager.enable = true;
 
@@ -12,7 +12,7 @@
   security.polkit.enable = true;
 
   users.groups.ubridge = { };
-  users.users.ion.extraGroups = lib.mkAfter [
+  users.users.ion.extraGroups = [
     "libvirtd"
     "kvm"
     "ubridge"
